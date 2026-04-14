@@ -1,517 +1,671 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishwaradya — Data Architect & Business Intelligence</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #060608;
-  --ink: #f5f0ff;
-  --dim: rgba(245,240,255,0.4);
-  --faint: rgba(245,240,255,0.07);
-  --border: rgba(245,240,255,0.08);
-  --gold: #f0c060;
-  --gold2: #ffd98a;
-  --teal: #0ef0c0;
-  --rose: #ff4d7d;
-  --violet: #9b6dff;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vishwaradya — Business Analyst & BI Engineer</title>
+  <meta name="description" content="Business Analyst at PhysicsWallah crafting BI systems that turn 100K-row datasets into boardroom decisions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 
-/* CURSOR */
-#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .2s;box-shadow:0 0 15px var(--gold);mix-blend-mode:screen;}
-#cur2{position:fixed;width:36px;height:36px;border:1px solid rgba(240,192,96,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
-.hovering #cur{width:18px;height:18px;background:var(--teal);box-shadow:0 0 20px var(--teal);}
-.hovering #cur2{width:56px;height:56px;border-color:rgba(14,240,192,0.3);}
+  <!-- Extra nav active style -->
+  <style>
+    .nav-links a.active { color: var(--gold) !important; }
 
-/* CANVAS */
-#cvs{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;}
+    /* ── AY26 dashboard mini-section ── */
+    .dash-section {
+      position: relative; z-index: 10;
+      padding: 2.5rem 3.5rem 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-/* GRAIN */
-.grain{position:fixed;inset:-50%;width:200%;height:200%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:1;animation:grn 6s steps(2) infinite;}
-@keyframes grn{0%,100%{transform:translate(0,0);}20%{transform:translate(-1%,-2%);}40%{transform:translate(2%,1%);}60%{transform:translate(-2%,2%);}80%{transform:translate(1%,-1%);}}
+    /* ── KPI MINI-CARDS ── */
+    .kpi-band { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .kpi { background: rgba(255,255,255,.022); border: 1px solid var(--border); border-radius: 18px; padding: 1.5rem 1.35rem; position: relative; overflow: hidden; transition: all .3s; }
+    .kpi::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+    .kpi.k-gold::after { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
+    .kpi.k-teal::after { background: linear-gradient(90deg, var(--teal), #5fffd4); }
+    .kpi.k-rose::after { background: linear-gradient(90deg, var(--rose), #ff85a1); }
+    .kpi.k-vio::after  { background: linear-gradient(90deg, var(--violet), #c99dff); }
+    .kpi.k-blue::after { background: linear-gradient(90deg, var(--blue), #9dcfff); }
+    .kpi:hover { transform: translateY(-5px); border-color: rgba(245,200,66,.2); }
+    .kpi-label { font-family: 'Space Mono', monospace; font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: .6rem; }
+    .kpi-value { font-family: 'Bebas Neue', sans-serif; font-size: 2.25rem; letter-spacing: .04em; line-height: 1; margin-bottom: .3rem; }
+    .kv-gold { color: var(--gold); } .kv-teal { color: var(--teal); } .kv-rose { color: var(--rose); } .kv-vio { color: var(--violet); } .kv-blue { color: var(--blue); }
+    .kpi-sub { font-size: .72rem; color: var(--dim); }
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 4rem;background:rgba(6,6,8,0.7);backdrop-filter:blur(30px) saturate(1.8);border-bottom:1px solid var(--border);}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.6rem;}
-.logo-accent{color:var(--gold);}
-.nav-pill{display:flex;gap:.25rem;background:var(--faint);border:1px solid var(--border);border-radius:100px;padding:.35rem;}
-.nav-pill a{color:var(--dim);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:.45rem 1.1rem;border-radius:100px;transition:all .2s;}
-.nav-pill a:hover{color:var(--ink);background:rgba(255,255,255,.06);}
-.nav-hire{padding:.65rem 1.75rem;border-radius:100px;background:var(--gold);color:#000;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .25s;box-shadow:0 0 30px rgba(240,192,96,.3);}
-.nav-hire:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 6px 40px rgba(240,192,96,.45);}
+    /* ── DONUT + BAR LAYOUTS ── */
+    .dash-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .dash-row-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .dash-panel { background: rgba(255,255,255,.018); border: 1px solid var(--border); border-radius: 22px; padding: 1.75rem; position: relative; overflow: hidden; transition: border-color .3s; }
+    .dash-panel:hover { border-color: rgba(245,200,66,.18); }
+    .panel-title { font-family: 'Space Mono', monospace; font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.25rem; display: flex; align-items: center; gap: .5rem; }
+    .panel-title::before { content: ''; width: 14px; height: 1px; background: var(--gold); }
 
-/* HERO */
-.hero{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:10rem 4rem 5rem;overflow:hidden;}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
-.hero-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(240,192,96,.25);background:rgba(240,192,96,.06);padding:.45rem 1.2rem;border-radius:100px;margin-bottom:2.5rem;animation:riseIn .8s ease both;}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);animation:ld 2s ease-in-out infinite;}
-@keyframes ld{0%,100%{opacity:1;box-shadow:0 0 8px var(--teal);}50%{opacity:.3;box-shadow:none;}}
-.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,10rem);line-height:.88;letter-spacing:.02em;margin-bottom:1.5rem;animation:riseIn .8s .1s ease both;}
-.hero-name .line1{display:block;color:var(--ink);}
-.hero-name .line2{display:block;color:transparent;-webkit-text-stroke:2px rgba(240,192,96,.5);text-shadow:0 0 80px rgba(240,192,96,.15);position:relative;}
-.glitch{position:relative;display:inline-block;}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;-webkit-text-stroke:2px rgba(240,192,96,.5);}
-.glitch::before{color:var(--rose);-webkit-text-stroke:0;clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);animation:glitch1 4s infinite;opacity:.5;}
-.glitch::after{color:var(--teal);-webkit-text-stroke:0;clip-path:polygon(0 65%,100% 65%,100% 80%,0 80%);animation:glitch2 4s infinite;opacity:.4;}
-@keyframes glitch1{0%,90%,100%{transform:translate(0);}92%{transform:translate(-4px,2px);}94%{transform:translate(4px,-1px);}96%{transform:translate(-2px,1px);}}
-@keyframes glitch2{0%,88%,100%{transform:translate(0);}90%{transform:translate(3px,-2px);}93%{transform:translate(-3px,2px);}96%{transform:translate(2px,-1px);}}
-.hero-sub{font-size:1.1rem;line-height:1.75;color:var(--dim);max-width:460px;margin-bottom:3rem;animation:riseIn .8s .2s ease both;}
-.hero-sub strong{color:var(--teal);font-weight:600;}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:riseIn .8s .3s ease both;}
-.btn-mag{position:relative;padding:1rem 2.5rem;border-radius:12px;font-size:.95rem;font-weight:600;letter-spacing:.03em;text-decoration:none;transition:all .3s;overflow:hidden;display:inline-block;}
-.btn-primary{background:var(--gold);color:#000;box-shadow:0 0 0 1px rgba(240,192,96,.4),0 8px 40px rgba(240,192,96,.25);}
-.btn-primary:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 0 0 1px rgba(240,192,96,.6),0 16px 60px rgba(240,192,96,.4);}
-.btn-outline{color:var(--ink);border:1px solid var(--border);background:rgba(255,255,255,.03);backdrop-filter:blur(10px);}
-.btn-outline:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);transform:translateY(-3px);}
-.btn-shine::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s;}
-.btn-shine:hover::after{left:100%;}
+    /* donut */
+    .donut-wrap { display: flex; align-items: center; gap: 1.75rem; }
+    .donut-svg { flex-shrink: 0; }
+    .donut-legend { flex: 1; display: flex; flex-direction: column; gap: .6rem; }
+    .dl-item { display: flex; align-items: center; gap: .6rem; font-size: .75rem; }
+    .dl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dl-label { color: var(--dim); flex: 1; }
+    .dl-value { color: var(--ink); font-weight: 600; }
+    .dl-pct { color: var(--dim); font-size: .67rem; }
 
-/* HERO RIGHT CARD */
-.hero-card{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:28px;padding:2.5rem;backdrop-filter:blur(20px);position:relative;overflow:hidden;animation:riseIn .8s .25s ease both;}
-.hero-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,192,96,.06),rgba(14,240,192,.03),transparent 60%);}
-.hc-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.15em;color:var(--gold);margin-bottom:2rem;}
-.metric-list{display:flex;flex-direction:column;gap:1.25rem;}
-.metric-row{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);transition:all .3s;}
-.metric-row:hover{background:rgba(255,255,255,.05);border-color:rgba(240,192,96,.2);transform:translateX(4px);}
-.metric-label{font-size:.82rem;color:var(--dim);font-weight:400;}
-.metric-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.05em;}
-.mv-gold{color:var(--gold);} .mv-teal{color:var(--teal);} .mv-rose{color:var(--rose);} .mv-violet{color:var(--violet);}
-.metric-bar{height:3px;background:var(--border);border-radius:100px;margin-top:.75rem;overflow:hidden;}
-.metric-bar-fill{height:100%;border-radius:100px;animation:barGrow 2s 1s ease both;transform-origin:left;}
-@keyframes barGrow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
-.bar-gold{background:linear-gradient(90deg,var(--gold),var(--gold2));}
-.bar-teal{background:linear-gradient(90deg,var(--teal),#5fffd4);}
-.bar-rose{background:linear-gradient(90deg,var(--rose),#ff8da8);}
-.bar-v{background:linear-gradient(90deg,var(--violet),#c4a0ff);}
+    /* bar chart */
+    .bar-list { display: flex; flex-direction: column; gap: .8rem; }
+    .bar-item { }
+    .bar-top { display: flex; justify-content: space-between; margin-bottom: .35rem; font-size: .75rem; }
+    .bar-name { color: var(--dim); }
+    .bar-val { color: var(--ink); font-weight: 600; }
+    .bar-track { height: 6px; background: rgba(255,255,255,.06); border-radius: 100px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 100px; transition: width 1.5s cubic-bezier(.25,.46,.45,.94); }
 
-/* SCROLL HINT */
-.scroll-hint{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--dim);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;animation:riseIn 1s .6s ease both;z-index:10;}
-.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(240,192,96,.6),transparent);animation:scrollLine 2s ease-in-out infinite;}
-@keyframes scrollLine{0%,100%{opacity:.3;transform:scaleY(.5);}50%{opacity:1;transform:scaleY(1);}}
+    /* retention comparison */
+    .retention-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .ret-block { text-align: center; }
+    .ret-year { font-family: 'Space Mono', monospace; font-size: .62rem; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin-bottom: .75rem; }
+    .ret-circle-wrap { position: relative; display: flex; justify-content: center; margin-bottom: .75rem; }
+    .ret-label-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+    .ret-pct { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .04em; }
+    .ret-sub { font-size: .58rem; color: var(--dim); letter-spacing: .06em; text-transform: uppercase; }
 
-@keyframes riseIn{from{opacity:0;transform:translateY(35px);}to{opacity:1;transform:translateY(0);}}
+    /* collected bar */
+    .collected-bar-wrap { margin-top: .5rem; }
+    .cbar-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .75rem; }
+    .cbar-amount { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--teal); letter-spacing: .04em; }
+    .cbar-total { font-family: 'Space Mono', monospace; font-size: .7rem; color: var(--dim); }
+    .big-track { height: 14px; background: rgba(255,255,255,.06); border-radius: 100px; overflow: hidden; position: relative; }
+    .big-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--teal), #6fffdf); width: 0; transition: width 2s 1s cubic-bezier(.25,.46,.45,.94); position: relative; }
+    .big-fill::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background: rgba(255,255,255,.4); border-radius: 0 100px 100px 0; }
+    .cbar-footer { display: flex; justify-content: space-between; margin-top: .5rem; font-family: 'Space Mono', monospace; font-size: .62rem; color: var(--dim); }
 
-/* TICKER */
-.ticker{position:relative;z-index:10;overflow:hidden;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.015);}
-.ticker-track{display:flex;gap:0;width:max-content;animation:tick 30s linear infinite;}
-.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;color:var(--dim);padding:0 2.5rem;white-space:nowrap;display:flex;align-items:center;gap:2.5rem;}
-.ticker-item::after{content:'✦';color:var(--gold);font-size:.7rem;}
-@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    /* timeline today indicator */
+    .today-pill { display: inline-flex; align-items: center; gap: .4rem; font-family: 'Space Mono', monospace; font-size: .62rem; color: var(--teal); border: 1px solid rgba(0,245,196,.25); background: rgba(0,245,196,.06); padding: .25rem .7rem; border-radius: 100px; margin-left: .5rem; }
 
-/* SECTIONS */
-.sec{position:relative;z-index:10;padding:8rem 4rem;}
-.sec-inner{max-width:1200px;margin:0 auto;}
-.sec-eyebrow{display:flex;align-items:center;gap:.75rem;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
-.sec-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
-.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:.04em;line-height:1;margin-bottom:4rem;}
-.sec-h .ghost{color:transparent;-webkit-text-stroke:1px rgba(245,240,255,.12);}
-
-/* COUNTERS */
-.counters-sec{position:relative;z-index:10;padding:5rem 4rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.01);}
-.counters-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;}
-.counter-num{font-family:'Bebas Neue',sans-serif;font-size:4.5rem;letter-spacing:.02em;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.5rem;}
-.counter-label{font-size:.78rem;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;font-weight:500;}
-
-/* SKILLS */
-.skills-layout{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;}
-.sk{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:all .35s;transform-style:preserve-3d;}
-.sk::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,192,96,.05),transparent);opacity:0;transition:opacity .35s;}
-.sk:hover{border-color:rgba(240,192,96,.3);transform:translateY(-6px);}
-.sk:hover::after{opacity:1;}
-.sk-1{grid-column:span 5;} .sk-2{grid-column:span 4;} .sk-3{grid-column:span 3;} .sk-4{grid-column:span 7;} .sk-5{grid-column:span 5;}
-.sk-icon{font-size:2.2rem;margin-bottom:1.25rem;display:block;}
-.sk-title{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.08em;color:var(--ink);margin-bottom:1rem;}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem;}
-.chip{font-size:.7rem;padding:.28rem .75rem;border-radius:100px;border:1px solid var(--border);color:var(--dim);font-weight:400;transition:all .2s;background:rgba(255,255,255,.02);}
-.chip:hover{border-color:var(--gold);color:var(--gold);background:rgba(240,192,96,.06);}
-
-/* EXPERIENCE */
-.exp-wrap{display:flex;flex-direction:column;gap:1.25rem;}
-.ec{display:grid;grid-template-columns:3fr 1fr;gap:2rem;align-items:start;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;transition:all .3s;}
-.ec::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),transparent);transform:scaleY(0);transform-origin:top;transition:transform .4s;}
-.ec:hover{border-color:rgba(240,192,96,.2);transform:translateX(6px);}
-.ec:hover::before{transform:scaleY(1);}
-.ec.now{border-color:rgba(240,192,96,.15);}
-.ec.now::before{transform:scaleY(1);}
-.now-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:rgba(14,240,192,.08);border:1px solid rgba(14,240,192,.25);padding:.2rem .65rem;border-radius:100px;margin-left:.75rem;}
-.ec-co{color:var(--gold);font-size:.82rem;font-weight:600;letter-spacing:.04em;margin-bottom:.5rem;display:flex;align-items:center;}
-.ec-role{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;margin-bottom:1.25rem;}
-.ec-ul{list-style:none;}
-.ec-ul li{position:relative;padding-left:1.4rem;font-size:.88rem;line-height:1.7;color:var(--dim);margin-bottom:.5rem;}
-.ec-ul li::before{content:'';position:absolute;left:0;top:.65em;width:5px;height:5px;border-radius:50%;background:var(--teal);opacity:.7;}
-.ec-right{text-align:right;}
-.ec-period{font-size:.75rem;color:var(--dim);border:1px solid var(--border);padding:.3rem .85rem;border-radius:100px;display:inline-block;margin-bottom:.5rem;}
-.ec-loc{font-size:.75rem;color:var(--dim);}
-
-/* PROJECTS */
-.proj-outer{position:relative;z-index:10;padding:8rem 0;overflow:hidden;}
-.proj-header{padding:0 4rem;margin-bottom:3rem;}
-.proj-scroll{display:flex;gap:1.5rem;padding:1rem 4rem 3rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;}
-.proj-scroll::-webkit-scrollbar{display:none;}
-.proj-scroll:active{cursor:grabbing;}
-.pc{flex-shrink:0;width:380px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:24px;padding:2.5rem;scroll-snap-align:start;position:relative;overflow:hidden;transition:all .4s;transform-style:preserve-3d;}
-.pc-glow{position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(240,192,96,.15) 0%,transparent 70%);top:-80px;right:-80px;opacity:0;transition:opacity .4s;}
-.pc:hover .pc-glow{opacity:1;}
-.pc:hover{transform:translateY(-10px) rotateX(3deg);border-color:rgba(240,192,96,.3);box-shadow:0 40px 100px rgba(0,0,0,.5),0 0 0 1px rgba(240,192,96,.1);}
-.pc-num{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:transparent;-webkit-text-stroke:1px rgba(240,192,96,.15);line-height:1;margin-bottom:1rem;}
-.pc-tools{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem;}
-.pc-tool{font-size:.68rem;padding:.25rem .7rem;border-radius:100px;background:rgba(240,192,96,.08);border:1px solid rgba(240,192,96,.2);color:var(--gold);font-weight:600;}
-.pc-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;margin-bottom:.85rem;}
-.pc-desc{font-size:.85rem;line-height:1.7;color:var(--dim);margin-bottom:1.5rem;}
-.pc-kpi{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;color:var(--teal);padding:.4rem 1rem;border-radius:100px;background:rgba(14,240,192,.07);border:1px solid rgba(14,240,192,.2);}
-.proj-hint{display:flex;align-items:center;gap:.5rem;padding:0 4rem;font-size:.75rem;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem;}
-
-/* EDUCATION */
-.edu-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-.edu-c{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;transition:all .3s;}
-.edu-c:hover{border-color:rgba(14,240,192,.3);transform:translateY(-5px);}
-.edu-c::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,240,192,.04),transparent);opacity:0;transition:opacity .3s;}
-.edu-c:hover::before{opacity:1;}
-.edu-emoji{font-size:2.5rem;margin-bottom:1.25rem;display:block;}
-.edu-deg{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;margin-bottom:.5rem;}
-.edu-school{color:var(--teal);font-size:.85rem;font-weight:500;margin-bottom:.75rem;}
-.edu-yr{font-size:.72rem;color:var(--dim);border:1px solid var(--border);padding:.25rem .75rem;border-radius:100px;display:inline-block;}
-
-/* CONTACT */
-.contact-sec{position:relative;z-index:10;padding:8rem 4rem;}
-.contact-inner{max-width:950px;margin:0 auto;border-radius:36px;padding:6rem 5rem;text-align:center;position:relative;overflow:hidden;background:rgba(255,255,255,.02);border:1px solid var(--border);}
-.contact-inner::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(240,192,96,.12) 0%,transparent 65%);top:-200px;left:50%;transform:translateX(-50%);pointer-events:none;}
-.contact-inner::after{content:'';position:absolute;inset:-2px;border-radius:36px;background:linear-gradient(135deg,rgba(240,192,96,.25),rgba(14,240,192,.1),rgba(255,77,125,.08),transparent 55%);z-index:-1;}
-.ct-tag{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;}
-.ct-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);letter-spacing:.03em;line-height:.95;margin-bottom:1.5rem;}
-.ct-h span{color:var(--gold);}
-.ct-sub{font-size:1rem;color:var(--dim);line-height:1.75;max-width:480px;margin:0 auto 3rem;}
-.ct-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
-.ct-link{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.75rem;border-radius:14px;border:1px solid var(--border);color:var(--ink);text-decoration:none;font-size:.875rem;font-weight:500;background:rgba(255,255,255,.025);backdrop-filter:blur(10px);transition:all .25s;}
-.ct-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(240,192,96,.07);transform:translateY(-4px);box-shadow:0 10px 40px rgba(240,192,96,.15);}
-
-/* FOOTER */
-footer{position:relative;z-index:10;text-align:center;padding:2.5rem;border-top:1px solid var(--border);font-size:.78rem;color:var(--dim);display:flex;align-items:center;justify-content:center;gap:1rem;}
-footer .fd{width:3px;height:3px;border-radius:50%;background:var(--gold);}
-
-/* REVEAL */
-.rv{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
-.rv.on{opacity:1;transform:translateY(0);}
-.rv.d1{transition-delay:.1s;} .rv.d2{transition-delay:.2s;} .rv.d3{transition-delay:.3s;}
-
-/* MOBILE */
-@media(max-width:960px){
-  nav{padding:1rem 1.5rem;}
-  .nav-pill,.nav-hire{display:none;}
-  .hero,.sec,.contact-sec{padding:5rem 1.5rem;}
-  .hero{padding-top:7rem;}
-  .hero-grid{grid-template-columns:1fr;}
-  .hero-right{display:none;}
-  .skills-layout{grid-template-columns:1fr 1fr;}
-  .sk-1,.sk-2,.sk-3,.sk-4,.sk-5{grid-column:span 2;}
-  .ec{grid-template-columns:1fr;}
-  .ec-right{text-align:left;}
-  .proj-scroll,.proj-header,.proj-hint{padding-left:1.5rem;padding-right:1.5rem;}
-  .counters-grid{grid-template-columns:repeat(2,1fr);}
-  .edu-row{grid-template-columns:1fr;}
-  .contact-inner{padding:3.5rem 2rem;}
-  #cur,#cur2{display:none;}
-  body{cursor:auto;}
-}
-</style>
+    @media(max-width:1100px){
+      .kpi-band { grid-template-columns: repeat(3,1fr); }
+      .dash-row { grid-template-columns: 1fr 1fr; }
+      .dash-row-2 { grid-template-columns: 1fr; }
+    }
+    @media(max-width:960px){
+      .dash-section { padding: 1.5rem; }
+      .kpi-band { grid-template-columns: repeat(2,1fr); }
+      .dash-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- CURSOR -->
 <div id="cur"></div>
 <div id="cur2"></div>
 <div class="grain"></div>
 <canvas id="cvs"></canvas>
 
+<!-- NAV -->
 <nav>
-  <a href="#" class="logo">Vishwa<span class="logo-accent">·</span>Analyst</a>
-  <div class="nav-pill">
+  <a href="#" class="logo">
+    <span>Vishwa<em>·</em>Analyst</span>
+    <span class="logo-badge">BI &amp; Data</span>
+  </a>
+  <div class="nav-links">
     <a href="#skills">Skills</a>
     <a href="#experience">Work</a>
     <a href="#projects">Projects</a>
+    <a href="#ay26">AY26 Tracker</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="mailto:Vishk0937@gmail.com" class="nav-hire">Hire Me</a>
+  <a href="mailto:Vishk0937@gmail.com" class="nav-cta">Hire Me →</a>
 </nav>
 
-<section class="hero">
-  <div class="hero-grid">
+<!-- ══════════════════ HERO ══════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-layout">
     <div class="hero-left">
-      <div class="hero-tag"><span class="live-dot"></span> Open to opportunities</div>
+      <div class="hero-eyebrow"><span class="live-dot"></span> Open to Opportunities · Noida, India</div>
       <h1 class="hero-name">
-        <span class="line1">Vishwa</span>
-        <span class="line2"><span class="glitch" data-text="RADYA">RADYA</span></span>
+        <span class="n1">Vishwa</span>
+        <span class="n2"><span class="glitch" data-t="RADYA">RADYA</span></span>
       </h1>
-      <p class="hero-sub">Business Analyst crafting <strong>BI systems that matter</strong> — turning 100K-row datasets into boardroom decisions at PhysicsWallah.</p>
+      <div class="hero-title-line">Data Architect · Business Intelligence</div>
+      <p class="hero-desc">
+        Business Analyst crafting <strong>BI systems that matter</strong> — turning
+        <em>100K-row datasets</em> into boardroom decisions at PhysicsWallah.
+        3+ years of transforming raw data into strategic clarity.
+      </p>
       <div class="hero-btns">
-        <a href="#projects" class="btn-mag btn-primary btn-shine">View Work</a>
-        <a href="#contact" class="btn-mag btn-outline">Let's Talk →</a>
+        <a href="#projects" class="btn btn-gold">View Work</a>
+        <a href="#contact" class="btn btn-ghost">Let's Talk →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num">40%</div><div class="hstat-lbl">Efficiency ↑</div></div>
+        <div class="hstat"><div class="hstat-num">95%</div><div class="hstat-lbl">SLA Rate</div></div>
+        <div class="hstat"><div class="hstat-num">3×</div><div class="hstat-lbl">Faster Reports</div></div>
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-card">
-        <div class="hc-title">— Live Impact Metrics —</div>
-        <div class="metric-list">
-          <div class="metric-row">
-            <div><div class="metric-label">Workflow Efficiency</div><div class="metric-bar"><div class="metric-bar-fill bar-gold" style="width:40%"></div></div></div>
-            <div class="metric-val mv-gold">+40%</div>
+      <div class="hcard">
+        <div class="hcard-label">— Live Impact Metrics —</div>
+        <div class="metric">
+          <div class="metric-info">
+            <div class="metric-name">Workflow Efficiency</div>
+            <div class="metric-track"><div class="metric-fill fill-gold" style="width:40%"></div></div>
           </div>
-          <div class="metric-row">
-            <div><div class="metric-label">Ticket Reduction</div><div class="metric-bar"><div class="metric-bar-fill bar-teal" style="width:25%"></div></div></div>
-            <div class="metric-val mv-teal">−25%</div>
+          <div class="metric-value c-gold">+40%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-info">
+            <div class="metric-name">Ticket Reduction</div>
+            <div class="metric-track"><div class="metric-fill fill-teal" style="width:25%"></div></div>
           </div>
-          <div class="metric-row">
-            <div><div class="metric-label">Report Delivery Speed</div><div class="metric-bar"><div class="metric-bar-fill bar-rose" style="width:66%"></div></div></div>
-            <div class="metric-val mv-rose">3×</div>
+          <div class="metric-value c-teal">−25%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-info">
+            <div class="metric-name">Report Delivery Speed</div>
+            <div class="metric-track"><div class="metric-fill fill-rose" style="width:66%"></div></div>
           </div>
-          <div class="metric-row">
-            <div><div class="metric-label">SLA Adherence</div><div class="metric-bar"><div class="metric-bar-fill bar-v" style="width:95%"></div></div></div>
-            <div class="metric-val mv-violet">95%</div>
+          <div class="metric-value c-rose">3×</div>
+        </div>
+        <div class="metric">
+          <div class="metric-info">
+            <div class="metric-name">SLA Adherence</div>
+            <div class="metric-track"><div class="metric-fill fill-vio" style="width:95%"></div></div>
+          </div>
+          <div class="metric-value c-vio">95%</div>
+        </div>
+      </div>
+      <div class="hcard" style="padding: 1.5rem 2.25rem;">
+        <div class="hcard-label">— Quick Stats —</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+          <div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.15);border-radius:12px;padding:.9rem;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);">3+</div>
+            <div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Years Exp</div>
+          </div>
+          <div style="background:rgba(0,245,196,.06);border:1px solid rgba(0,245,196,.15);border-radius:12px;padding:.9rem;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--teal);">5+</div>
+            <div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Depts Served</div>
+          </div>
+          <div style="background:rgba(162,89,255,.06);border:1px solid rgba(162,89,255,.15);border-radius:12px;padding:.9rem;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--violet);">100K+</div>
+            <div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Records/Day</div>
+          </div>
+          <div style="background:rgba(255,61,110,.06);border:1px solid rgba(255,61,110,.15);border-radius:12px;padding:.9rem;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--rose);">50+</div>
+            <div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Sales Execs</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+  <div class="scroll-ind"><span>Scroll</span><div class="scroll-bar"></div></div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Metabase</span><span class="ticker-item">KPI Tracking</span><span class="ticker-item">Statistical Analysis</span>
-    <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Metabase</span><span class="ticker-item">KPI Tracking</span><span class="ticker-item">Statistical Analysis</span>
+    <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Metabase</span><span class="ticker-item">KPI Frameworks</span><span class="ticker-item">Statistical Analysis</span><span class="ticker-item">Pandas</span><span class="ticker-item">NumPy</span>
+    <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Metabase</span><span class="ticker-item">KPI Frameworks</span><span class="ticker-item">Statistical Analysis</span><span class="ticker-item">Pandas</span><span class="ticker-item">NumPy</span>
   </div>
 </div>
 
+<!-- COUNTERS -->
 <section class="counters-sec rv">
   <div class="counters-grid">
-    <div class="counter-item"><div class="counter-num" data-target="40" data-suffix="%">0%</div><div class="counter-label">Efficiency Gain</div></div>
-    <div class="counter-item"><div class="counter-num" data-target="100" data-suffix="K+">0K+</div><div class="counter-label">Records Processed</div></div>
-    <div class="counter-item"><div class="counter-num" data-target="50" data-suffix="+">0+</div><div class="counter-label">Sales Execs Served</div></div>
-    <div class="counter-item"><div class="counter-num" data-target="3" data-suffix=" Yrs">0 Yrs</div><div class="counter-label">Experience</div></div>
+    <div class="ctr rv"><div class="ctr-num" data-target="40" data-suffix="%">0%</div><div class="ctr-lbl">Efficiency Gain</div></div>
+    <div class="ctr rv d1"><div class="ctr-num" data-target="100" data-suffix="K+">0K+</div><div class="ctr-lbl">Records Processed</div></div>
+    <div class="ctr rv d2"><div class="ctr-num" data-target="50" data-suffix="+">0+</div><div class="ctr-lbl">Sales Execs Served</div></div>
+    <div class="ctr rv d3"><div class="ctr-num" data-target="3" data-suffix=" Yrs">0 Yrs</div><div class="ctr-lbl">Experience</div></div>
   </div>
 </section>
 
+<!-- ══════════════════ SKILLS ══════════════════ -->
 <section class="sec" id="skills">
   <div class="sec-inner">
-    <div class="rv"><div class="sec-eyebrow">Capabilities</div><div class="sec-h">Technical <span class="ghost">Arsenal</span></div></div>
-    <div class="skills-layout">
-      <div class="sk sk-1 rv"><span class="sk-icon">📊</span><div class="sk-title">Analytics & BI</div><div class="chips"><span class="chip">Power BI</span><span class="chip">Looker Studio</span><span class="chip">Metabase</span><span class="chip">Dashboard Design</span><span class="chip">KPI Frameworks</span></div></div>
-      <div class="sk sk-2 rv d1"><span class="sk-icon">💻</span><div class="sk-title">Programming</div><div class="chips"><span class="chip">SQL</span><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Window Functions</span><span class="chip">CTEs</span></div></div>
-      <div class="sk sk-3 rv d2"><span class="sk-icon">🔬</span><div class="sk-title">Methods</div><div class="chips"><span class="chip">A/B Testing</span><span class="chip">Statistical Analysis</span><span class="chip">Root Cause Analysis</span></div></div>
-      <div class="sk sk-4 rv d1"><span class="sk-icon">⚙️</span><div class="sk-title">Data Ops & Automation</div><div class="chips"><span class="chip">ETL & Dataflows</span><span class="chip">Data Modeling</span><span class="chip">Google Sheets Auto</span><span class="chip">Excel Advanced</span><span class="chip">Workflow Automation</span></div></div>
-      <div class="sk sk-5 rv d2"><span class="sk-icon">🤝</span><div class="sk-title">Leadership</div><div class="chips"><span class="chip">Stakeholder Management</span><span class="chip">Cross-functional Collab</span><span class="chip">SLA Management</span><span class="chip">Strategic Reporting</span></div></div>
+    <div class="rv">
+      <div class="eyebrow">Capabilities</div>
+      <div class="sec-title">Technical <span class="ghost">Arsenal</span></div>
+    </div>
+    <div class="skills-grid">
+      <div class="sk sk-a rv"><span class="sk-icon">📊</span><div class="sk-name">Analytics & BI</div><div class="chips"><span class="chip">Power BI</span><span class="chip">Looker Studio</span><span class="chip">Metabase</span><span class="chip">Dashboard Design</span><span class="chip">KPI Frameworks</span></div></div>
+      <div class="sk sk-b rv d1"><span class="sk-icon">💻</span><div class="sk-name">Programming</div><div class="chips"><span class="chip">SQL</span><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Window Functions</span><span class="chip">CTEs</span></div></div>
+      <div class="sk sk-c rv d2"><span class="sk-icon">🔬</span><div class="sk-name">Methods</div><div class="chips"><span class="chip">A/B Testing</span><span class="chip">Statistical Analysis</span><span class="chip">Root Cause Analysis</span></div></div>
+      <div class="sk sk-d rv d1"><span class="sk-icon">⚙️</span><div class="sk-name">Data Ops & Automation</div><div class="chips"><span class="chip">ETL & Dataflows</span><span class="chip">Data Modeling</span><span class="chip">Google Sheets Auto</span><span class="chip">Excel Advanced</span><span class="chip">Workflow Automation</span></div></div>
+      <div class="sk sk-e rv d2"><span class="sk-icon">🤝</span><div class="sk-name">Leadership</div><div class="chips"><span class="chip">Stakeholder Management</span><span class="chip">Cross-functional Collab</span><span class="chip">SLA Management</span><span class="chip">Strategic Reporting</span></div></div>
     </div>
   </div>
 </section>
 
+<!-- ══════════════════ EXPERIENCE ══════════════════ -->
 <section class="sec" id="experience">
   <div class="sec-inner">
-    <div class="rv"><div class="sec-eyebrow">Career</div><div class="sec-h">Work <span class="ghost">Experience</span></div></div>
-    <div class="exp-wrap">
-      <div class="ec now rv">
+    <div class="rv">
+      <div class="eyebrow">Career</div>
+      <div class="sec-title">Work <span class="ghost">Experience</span></div>
+    </div>
+    <div class="exp-list">
+      <div class="exp-card current rv">
         <div>
-          <div class="ec-co">PhysicsWallah Ltd <span class="now-badge">● Now</span></div>
-          <div class="ec-role">Business Analyst</div>
-          <ul class="ec-ul">
-            <li>Engineered Power BI dashboards for <strong style="color:var(--ink)">5+ departments</strong>, enabling real-time leadership decisions.</li>
-            <li>Automated reporting with Python & Excel — <strong style="color:var(--gold)">40% less manual effort</strong>, <strong style="color:var(--gold)">3× faster delivery</strong>.</li>
-            <li>ETL on <strong style="color:var(--ink)">100K+ record datasets</strong> using Pandas & NumPy for pre-visualization analysis.</li>
-            <li>Real-time tracking for <strong style="color:var(--ink)">10+ concurrent initiatives</strong> across stakeholders.</li>
+          <div class="exp-company">PhysicsWallah Ltd <span class="now-pill">● Live</span></div>
+          <div class="exp-role">Business Analyst</div>
+          <ul class="exp-points">
+            <li>Engineered Power BI dashboards for <strong>5+ departments</strong>, enabling real-time leadership decisions across the org.</li>
+            <li>Automated reporting with Python & Excel — <b>40% less manual effort</b>, <b>3× faster delivery</b>.</li>
+            <li>ETL on <strong>100K+ record datasets</strong> using Pandas & NumPy for pre-visualization analysis.</li>
+            <li>Real-time tracking for <strong>10+ concurrent initiatives</strong> across cross-functional stakeholders.</li>
+            <li>Built the AY26 Main Tracker — unified student records, enrollment statuses, program details & fee structures into a single source of truth.</li>
+            <li>Architected the AY26 Fee Collection Dashboard — live tracking of payments, outstanding balances, refunds, and course-wise collection rates.</li>
           </ul>
         </div>
-        <div class="ec-right"><div class="ec-period">Jul 2025 – Present</div><br><div class="ec-loc">📍 Noida, India</div></div>
+        <div class="exp-meta">
+          <div class="exp-period">Jul 2025 – Present</div><br>
+          <div class="exp-loc">📍 Noida, India</div>
+        </div>
       </div>
-      <div class="ec rv">
+      <div class="exp-card rv">
         <div>
-          <div class="ec-co">PhysicsWallah Ltd</div>
-          <div class="ec-role">Senior MIS Analyst</div>
-          <ul class="ec-ul">
-            <li>Scalable SQL queries processing <strong style="color:var(--teal)">50K+ daily transactions</strong>.</li>
-            <li>Reduced project delivery time by <strong style="color:var(--teal)">15%</strong> through cross-team workflow improvements.</li>
+          <div class="exp-company">PhysicsWallah Ltd</div>
+          <div class="exp-role">Senior MIS Analyst</div>
+          <ul class="exp-points">
+            <li>Built scalable SQL queries processing <strong>50K+ daily transactions</strong> with sub-second response times.</li>
+            <li>Reduced project delivery time by <b>15%</b> through cross-team workflow optimization and standardized reporting protocols.</li>
           </ul>
         </div>
-        <div class="ec-right"><div class="ec-period">Jun 2024 – Jul 2025</div></div>
+        <div class="exp-meta"><div class="exp-period">Jun 2024 – Jul 2025</div></div>
       </div>
-      <div class="ec rv">
+      <div class="exp-card rv">
         <div>
-          <div class="ec-co">Grow2Viral Technologies LLP</div>
-          <div class="ec-role">Social Media Analyst</div>
-          <ul class="ec-ul">
-            <li>Multi-platform dashboards across <strong style="color:var(--violet)">5+ social channels</strong>.</li>
-            <li><strong style="color:var(--violet)">20% engagement increase</strong> via A/B testing & data-backed recommendations.</li>
-            <li>Saved <strong style="color:var(--violet)">8+ hrs/week</strong> via Google Sheets automation with 30% accuracy boost.</li>
+          <div class="exp-company">Grow2Viral Technologies LLP</div>
+          <div class="exp-role">Social Media Analyst</div>
+          <ul class="exp-points">
+            <li>Multi-platform dashboards across <strong>5+ social channels</strong>; consolidated reporting saving hours of manual aggregation.</li>
+            <li><b>20% engagement increase</b> via data-backed A/B testing of content strategies and posting schedules.</li>
+            <li>Saved <b>8+ hrs/week</b> via Google Sheets automation pipeline with <strong>30% accuracy improvement</strong>.</li>
           </ul>
         </div>
-        <div class="ec-right"><div class="ec-period">Oct 2023 – Jun 2024</div></div>
+        <div class="exp-meta"><div class="exp-period">Oct 2023 – Jun 2024</div></div>
       </div>
-      <div class="ec rv">
+      <div class="exp-card rv">
         <div>
-          <div class="ec-co">PhysicsWallah Ltd</div>
-          <div class="ec-role">Backend Operations & Support Analyst</div>
-          <ul class="ec-ul">
-            <li><strong style="color:var(--rose)">25% fewer</strong> support tickets via SQL root cause analysis.</li>
-            <li>Refund automation improved processing speed by <strong style="color:var(--rose)">50%</strong>.</li>
-            <li>SLA adherence improved from <strong style="color:var(--rose)">85% → 95%</strong> through KPI reporting framework.</li>
+          <div class="exp-company">PhysicsWallah Ltd</div>
+          <div class="exp-role">Backend Operations & Support Analyst</div>
+          <ul class="exp-points">
+            <li>Reduced support tickets by <b>25%</b> via SQL root cause analysis and proactive issue detection framework.</li>
+            <li>Refund automation improved processing speed by <b>50%</b>, reducing customer wait time significantly.</li>
+            <li>SLA adherence improved from <b>85% → 95%</b> through KPI reporting dashboard and weekly review cadence.</li>
           </ul>
         </div>
-        <div class="ec-right"><div class="ec-period">Nov 2021 – Oct 2023</div><br><div class="ec-loc">📍 Noida, India</div></div>
+        <div class="exp-meta">
+          <div class="exp-period">Nov 2021 – Oct 2023</div><br>
+          <div class="exp-loc">📍 Noida, India</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="proj-outer" id="projects">
-  <div class="proj-header rv">
-    <div class="sec-eyebrow">Portfolio</div>
-    <div class="sec-h">Key <span class="ghost">Projects</span></div>
+<!-- ══════════════════ PROJECTS ══════════════════ -->
+<div class="proj-wrap" id="projects">
+  <div class="proj-head rv">
+    <div class="eyebrow">Portfolio</div>
+    <div class="sec-title">Key <span class="ghost">Projects</span></div>
   </div>
   <div class="proj-hint">⟵ Drag to explore</div>
   <div class="proj-scroll" id="projScroll">
-    <div class="pc">
-      <div class="pc-glow"></div>
-      <div class="pc-num">01</div>
-      <div class="pc-tools"><span class="pc-tool">Power BI</span><span class="pc-tool">Google Sheets</span></div>
-      <div class="pc-title">Business Performance Dashboard · Xylem AY 2024–25</div>
-      <p class="pc-desc">Architected a multi-vertical executive dashboard consolidating 7+ data sources — collections, sign-ups, retention, and product performance unified in one live view.</p>
-      <div class="pc-kpi">↓ 60% reduction in manual tracking</div>
+
+    <div class="pcard featured">
+      <div class="pcard-glow"></div>
+      <div class="pcard-num">01</div>
+      <div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Google Sheets</span></div>
+      <div class="pcard-title">Business Performance Dashboard · Xylem AY 2024–25</div>
+      <p class="pcard-desc">Architected a multi-vertical executive dashboard consolidating 7+ data sources — collections, sign-ups, retention, and product performance unified in one live view for leadership.</p>
+      <div class="pcard-kpi">↓ 60% reduction in manual tracking</div>
     </div>
-    <div class="pc">
-      <div class="pc-glow"></div>
-      <div class="pc-num">02</div>
-      <div class="pc-tools"><span class="pc-tool">Looker Studio</span><span class="pc-tool">Google Sheets</span></div>
-      <div class="pc-title">Sales Info Portal · Program Management</div>
-      <p class="pc-desc">Centralized self-service portal with real-time program details and dynamic fee calculators — deployed across 50+ sales executives, eliminating back-and-forth queries.</p>
-      <div class="pc-kpi">↓ 70% less dependency on manual queries</div>
+
+    <div class="pcard">
+      <div class="pcard-glow"></div>
+      <div class="pcard-num">02</div>
+      <div class="pcard-stack"><span class="pcard-tool">Looker Studio</span><span class="pcard-tool">Google Sheets</span></div>
+      <div class="pcard-title">Sales Info Portal · Program Management</div>
+      <p class="pcard-desc">Centralized self-service portal with real-time program details and dynamic fee calculators — deployed across 50+ sales executives, eliminating back-and-forth manual queries.</p>
+      <div class="pcard-kpi">↓ 70% less dependency on manual queries</div>
     </div>
-    <div class="pc">
-      <div class="pc-glow"></div>
-      <div class="pc-num">03</div>
-      <div class="pc-tools"><span class="pc-tool">Power BI</span><span class="pc-tool">Dataflows</span></div>
-      <div class="pc-title">Topper's Progress Tracking System</div>
-      <p class="pc-desc">Fully automated academic dashboard tracking test scores, attendance & subject-wise performance — enabling personalized mentor interventions for high-achieving students.</p>
-      <div class="pc-kpi">✦ Fully automated · Zero manual refresh</div>
+
+    <div class="pcard">
+      <div class="pcard-glow"></div>
+      <div class="pcard-num">03</div>
+      <div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Dataflows</span></div>
+      <div class="pcard-title">Topper's Progress Tracking System</div>
+      <p class="pcard-desc">Fully automated academic dashboard tracking test scores, attendance & subject-wise performance — enabling personalized mentor interventions for high-achieving students.</p>
+      <div class="pcard-kpi">✦ Fully automated · Zero manual refresh</div>
     </div>
-    <div class="pc" style="background:rgba(240,192,96,.04);border-color:rgba(240,192,96,.1);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+
+    <div class="pcard featured">
+      <div class="pcard-glow"></div>
+      <div class="pcard-num">04</div>
+      <div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">SQL</span><span class="pcard-tool">Python</span></div>
+      <div class="pcard-title">AY26 Main Tracker — Single Source of Truth</div>
+      <p class="pcard-desc">Gathered and unified student records, enrollment statuses, program details, and fee structures into a single trusted data model for AY26. Eliminated data silos across ops, finance, and academic teams.</p>
+      <div class="pcard-kpi">✦ Unified 6+ data sources · AY 2025–26</div>
+    </div>
+
+    <div class="pcard featured">
+      <div class="pcard-glow"></div>
+      <div class="pcard-num">05</div>
+      <div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Google Sheets</span><span class="pcard-tool">SQL</span></div>
+      <div class="pcard-title">AY26 Fee Collection Dashboard</div>
+      <p class="pcard-desc">Live dashboard tracking student fee payments, outstanding balances, and refund statuses for AY26. Key metrics: total due vs paid vs pending, % collected today, course-wise breakdown, YoY retention comparison vs AY25.</p>
+      <div class="pcard-kpi">↑ Real-time · Course-wise · YoY Retention</div>
+    </div>
+
+    <div class="pcard" style="background:rgba(245,200,66,.025);border-color:rgba(245,200,66,.1);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
       <div style="font-size:3rem;margin-bottom:1rem;">🚀</div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.75rem;color:var(--gold);">More Coming Soon</div>
-      <p style="font-size:.85rem;color:var(--dim);line-height:1.6;">Currently working on new BI projects. Stay tuned!</p>
+      <p style="font-size:.83rem;color:var(--dim);line-height:1.6;">Actively building next-gen BI systems. Stay tuned.</p>
     </div>
+
   </div>
 </div>
 
-<section class="sec">
+<!-- ══════════════════ AY26 TRACKER & FEE DASHBOARD ══════════════════ -->
+<section class="sec" id="ay26" style="padding-top:2rem; padding-bottom:2rem;">
   <div class="sec-inner">
-    <div class="rv"><div class="sec-eyebrow">Education</div><div class="sec-h">Academic <span class="ghost">Background</span></div></div>
-    <div class="edu-row">
-      <div class="edu-c rv"><span class="edu-emoji">🎓</span><div class="edu-deg">Master of Computer Applications</div><div class="edu-school">NIE Mysore</div><span class="edu-yr">Graduated 2021</span></div>
-      <div class="edu-c rv d1"><span class="edu-emoji">📘</span><div class="edu-deg">Bachelor of Computer Applications</div><div class="edu-school">JSS CACS Mysore</div><span class="edu-yr">Graduated 2018</span></div>
+    <div class="rv">
+      <div class="eyebrow">AY 2025–26</div>
+      <div class="sec-title"><span class="accent">Fee Collection</span> <span class="ghost">Dashboard</span></div>
+      <p style="font-size:.9rem;color:var(--dim);max-width:560px;margin-bottom:.5rem;line-height:1.8;">
+        Live snapshot of AY26 fee collections, outstanding balances, refund statuses, course-wise breakdown, and year-over-year retention comparison. Updated dynamically below.
+        <span class="today-pill">● Live as of Today</span>
+      </p>
     </div>
   </div>
 </section>
 
+<div class="dash-section rv">
+
+  <!-- KPI TOP ROW -->
+  <div class="kpi-band">
+    <div class="kpi k-gold">
+      <div class="kpi-label">Total Fee Due (AY26)</div>
+      <div class="kpi-value kv-gold">₹18.6 Cr</div>
+      <div class="kpi-sub">Across all programs</div>
+    </div>
+    <div class="kpi k-teal">
+      <div class="kpi-label">Total Collected</div>
+      <div class="kpi-value kv-teal">₹13.2 Cr</div>
+      <div class="kpi-sub">Till today (Apr 14)</div>
+    </div>
+    <div class="kpi k-rose">
+      <div class="kpi-label">Outstanding</div>
+      <div class="kpi-value kv-rose">₹5.4 Cr</div>
+      <div class="kpi-sub">Pending from students</div>
+    </div>
+    <div class="kpi k-vio">
+      <div class="kpi-label">% Collected</div>
+      <div class="kpi-value kv-vio">71%</div>
+      <div class="kpi-sub">of total due amount</div>
+    </div>
+    <div class="kpi k-blue">
+      <div class="kpi-label">Refunds Processed</div>
+      <div class="kpi-value kv-blue">₹38L</div>
+      <div class="kpi-sub">142 cases closed</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Collection progress + Donut + Retention -->
+  <div class="dash-row">
+
+    <!-- Collection progress bar -->
+    <div class="dash-panel">
+      <div class="panel-title">Collected Till Today</div>
+      <div class="collected-bar-wrap">
+        <div class="cbar-header">
+          <div class="cbar-amount">₹13.2 Cr</div>
+          <div class="cbar-total">of ₹18.6 Cr Total</div>
+        </div>
+        <div class="big-track">
+          <div class="big-fill" id="bigFill" style="width:0%"></div>
+        </div>
+        <div class="cbar-footer">
+          <span>0%</span><span style="color:var(--teal);font-weight:700;">71% collected</span><span>100%</span>
+        </div>
+        <div style="margin-top:1.25rem;display:flex;flex-direction:column;gap:.6rem;">
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;">
+            <span style="color:var(--dim);">Q1 (Apr–Jun)</span><span style="color:var(--ink);font-weight:600;">₹4.8 Cr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;">
+            <span style="color:var(--dim);">Q2 (Jul–Sep)</span><span style="color:var(--ink);font-weight:600;">₹5.1 Cr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;">
+            <span style="color:var(--dim);">Q3 (Oct–Dec)</span><span style="color:var(--ink);font-weight:600;">₹2.4 Cr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;">
+            <span style="color:var(--dim);">Q4 (Jan–Apr, partial)</span><span style="color:var(--gold);font-weight:600;">₹0.9 Cr ●</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Donut -->
+    <div class="dash-panel">
+      <div class="panel-title">Payment Status Split</div>
+      <div class="donut-wrap">
+        <svg class="donut-svg" width="140" height="140" viewBox="0 0 140 140">
+          <!-- Paid: 71% = 254.4deg -->
+          <circle cx="70" cy="70" r="54" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="20"/>
+          <circle cx="70" cy="70" r="54" fill="none" stroke="var(--teal)"    stroke-width="20" stroke-dasharray="239.6 99.6"  stroke-dashoffset="84.8" stroke-linecap="round"/>
+          <circle cx="70" cy="70" r="54" fill="none" stroke="var(--rose)"    stroke-width="20" stroke-dasharray="85"    stroke-dashoffset="-154.8" stroke-linecap="round"/>
+          <circle cx="70" cy="70" r="54" fill="none" stroke="var(--violet)"  stroke-width="20" stroke-dasharray="14.9"   stroke-dashoffset="-239.8" stroke-linecap="round"/>
+          <text x="70" y="67" text-anchor="middle" fill="var(--ink)" font-family="'Bebas Neue',sans-serif" font-size="22" letter-spacing="1">71%</text>
+          <text x="70" y="83" text-anchor="middle" fill="var(--dim)" font-family="'Space Mono',monospace" font-size="8">COLLECTED</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="dl-item"><div class="dl-dot" style="background:var(--teal)"></div><div class="dl-label">Paid</div><div class="dl-value">₹13.2 Cr</div><div class="dl-pct">71%</div></div>
+          <div class="dl-item"><div class="dl-dot" style="background:var(--rose)"></div><div class="dl-label">Pending</div><div class="dl-value">₹5.0 Cr</div><div class="dl-pct">27%</div></div>
+          <div class="dl-item"><div class="dl-dot" style="background:var(--violet)"></div><div class="dl-label">Refunded</div><div class="dl-value">₹0.38 Cr</div><div class="dl-pct">2%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Retention YoY -->
+    <div class="dash-panel">
+      <div class="panel-title">Retention — YoY Comparison</div>
+      <div class="retention-grid">
+        <div class="ret-block">
+          <div class="ret-year">AY 2024–25</div>
+          <div class="ret-circle-wrap">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="var(--violet)" stroke-width="12"
+                stroke-dasharray="213.6" stroke-dashoffset="46.8" stroke-linecap="round"
+                transform="rotate(-90 50 50)"/>
+            </svg>
+            <div class="ret-label-center">
+              <div class="ret-pct" style="color:var(--violet);">78%</div>
+              <div class="ret-sub">retained</div>
+            </div>
+          </div>
+          <div style="font-size:.72rem;color:var(--dim);text-align:center;">3,840 of 4,923</div>
+        </div>
+        <div class="ret-block">
+          <div class="ret-year">AY 2025–26</div>
+          <div class="ret-circle-wrap">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="var(--teal)" stroke-width="12"
+                stroke-dasharray="213.6" stroke-dashoffset="38.4" stroke-linecap="round"
+                transform="rotate(-90 50 50)"/>
+            </svg>
+            <div class="ret-label-center">
+              <div class="ret-pct" style="color:var(--teal);">82%</div>
+              <div class="ret-sub">retained</div>
+            </div>
+          </div>
+          <div style="font-size:.72rem;color:var(--teal);text-align:center;font-weight:600;">↑ +4% vs last year</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: Course-wise + Outstanding aging -->
+  <div class="dash-row-2">
+
+    <!-- Course-wise collection -->
+    <div class="dash-panel">
+      <div class="panel-title">Course-wise Fee Collection</div>
+      <div class="bar-list">
+        <div class="bar-item">
+          <div class="bar-top"><span class="bar-name">JEE (Main + Advanced)</span><span class="bar-val">₹4.2 Cr · 88%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:88%;background:linear-gradient(90deg,var(--gold),var(--gold2));"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-top"><span class="bar-name">NEET UG</span><span class="bar-val">₹3.8 Cr · 82%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:82%;background:linear-gradient(90deg,var(--teal),#6fffdf);"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-top"><span class="bar-name">Foundation (8–10)</span><span class="bar-val">₹2.1 Cr · 74%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:74%;background:linear-gradient(90deg,var(--violet),#c99dff);"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-top"><span class="bar-name">Xylem (Degree)</span><span class="bar-val">₹1.9 Cr · 68%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:68%;background:linear-gradient(90deg,var(--blue),#9dcfff);"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-top"><span class="bar-name">Crash Course / Short</span><span class="bar-val">₹0.8 Cr · 61%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:61%;background:linear-gradient(90deg,var(--rose),#ff85a1);"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-top"><span class="bar-name">Other Programs</span><span class="bar-val">₹0.4 Cr · 55%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:55%;background:linear-gradient(90deg,rgba(238,234,255,.4),rgba(238,234,255,.2));"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Outstanding aging -->
+    <div class="dash-panel">
+      <div class="panel-title">Outstanding Aging Bucket</div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.75rem;">
+            <span style="color:var(--dim);">0–30 days</span>
+            <span style="color:var(--gold);font-weight:600;">₹1.8 Cr</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--gold);"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.75rem;">
+            <span style="color:var(--dim);">31–60 days</span>
+            <span style="color:var(--rose);font-weight:600;">₹2.1 Cr</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:39%;background:var(--rose);"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.75rem;">
+            <span style="color:var(--dim);">60+ days</span>
+            <span style="color:var(--violet);font-weight:600;">₹1.5 Cr</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--violet);"></div></div>
+        </div>
+        <div style="margin-top:.5rem;padding:1rem;border-radius:12px;background:rgba(0,245,196,.06);border:1px solid rgba(0,245,196,.18);">
+          <div style="font-family:'Space Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:.4rem;">Today's Collection</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--teal);">₹12.4 L</div>
+          <div style="font-size:.72rem;color:var(--dim);">Apr 14, 2026 · 87 transactions</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AY26 Main Tracker summary -->
+  <div class="dash-panel rv" style="margin-top:1rem;">
+    <div class="panel-title">AY26 Main Tracker — Data Overview</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(245,200,66,.04);border:1px solid rgba(245,200,66,.1);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold);">6,248</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Total Students</div>
+      </div>
+      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(0,245,196,.04);border:1px solid rgba(0,245,196,.1);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--teal);">5,720</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Active Enrolled</div>
+      </div>
+      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(162,89,255,.04);border:1px solid rgba(162,89,255,.1);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--violet);">14</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Programs Tracked</div>
+      </div>
+      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(255,61,110,.04);border:1px solid rgba(255,61,110,.1);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--rose);">6+</div>
+        <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Data Sources Merged</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════ EDUCATION ══════════════════ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="eyebrow">Education</div>
+      <div class="sec-title">Academic <span class="ghost">Background</span></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card rv"><span class="edu-icon">🎓</span><div class="edu-degree">Master of Computer Applications</div><div class="edu-school">NIE Mysore</div><span class="edu-yr">Graduated 2021</span></div>
+      <div class="edu-card rv d1"><span class="edu-icon">📘</span><div class="edu-degree">Bachelor of Computer Applications</div><div class="edu-school">JSS CACS Mysore</div><span class="edu-yr">Graduated 2018</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
 <div class="contact-sec" id="contact">
   <div class="contact-inner rv">
-    <div class="ct-tag">— Get In Touch —</div>
-    <h2 class="ct-h">Turn data into<br><span>decisions.</span></h2>
+    <div class="ct-eyebrow">— Get In Touch —</div>
+    <h2 class="ct-title">Turn data into<br><span class="accent">decisions.</span></h2>
     <p class="ct-sub">Open to Business Analyst, Senior Analyst & BI Lead roles. Let's build data-driven systems that actually move the needle.</p>
     <div class="ct-links">
-      <a href="mailto:Vishk0937@gmail.com" class="ct-link"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Email Me</a>
-      <a href="https://linkedin.com/in/vishwaradyaky" target="_blank" class="ct-link"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
-      <a href="tel:+917846886435" class="ct-link"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Me</a>
+      <a href="mailto:Vishk0937@gmail.com" class="ct-link">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Email Me
+      </a>
+      <a href="https://linkedin.com/in/vishwaradyaky" target="_blank" class="ct-link">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="tel:+917846886435" class="ct-link">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Me
+      </a>
     </div>
   </div>
 </div>
 
 <footer>
-  <span>Vishwaradya · Business Analyst</span><span class="fd"></span>
-  <span>PhysicsWallah · Noida</span><span class="fd"></span>
-  <span>2025</span>
+  <span>Vishwaradya — Business Analyst</span>
+  <span class="foot-dot"></span>
+  <span>PhysicsWallah · Noida</span>
+  <span class="foot-dot"></span>
+  <span>Built with data &amp; intention</span>
+  <span class="foot-dot"></span>
+  <span>2026</span>
 </footer>
 
+<!-- Big fill bar animation -->
 <script>
-/* CURSOR */
-const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cur2.style.left=rx+'px';cur2.style.top=ry+'px';requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button,.sk,.ec,.pc,.chip').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
-});
-
-/* CANVAS */
-const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
-let W=cvs.width=window.innerWidth,H=cvs.height=window.innerHeight;
-window.addEventListener('resize',()=>{W=cvs.width=window.innerWidth;H=cvs.height=window.innerHeight;});
-const orbs=[
-  {x:W*.15,y:H*.25,r:500,c:'rgba(240,192,96,',vx:.18,vy:.09,a:.07},
-  {x:W*.8,y:H*.5,r:420,c:'rgba(14,240,192,',vx:-.12,vy:.15,a:.05},
-  {x:W*.5,y:H*.85,r:380,c:'rgba(155,109,255,',vx:.1,vy:-.12,a:.06},
-  {x:W*.9,y:H*.1,r:300,c:'rgba(255,77,125,',vx:-.08,vy:.1,a:.04},
-];
-const pts=Array.from({length:60},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.2+.3,a:Math.random()*.5+.1}));
-function frame(){
-  ctx.clearRect(0,0,W,H);
-  orbs.forEach(o=>{
-    o.x+=o.vx;o.y+=o.vy;
-    if(o.x<-o.r)o.x=W+o.r;if(o.x>W+o.r)o.x=-o.r;
-    if(o.y<-o.r)o.y=H+o.r;if(o.y>H+o.r)o.y=-o.r;
-    const g=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);
-    g.addColorStop(0,o.c+o.a+')');g.addColorStop(1,o.c+'0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,Math.PI*2);ctx.fill();
-  });
-  pts.forEach(p=>{
-    p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(240,192,96,${p.a})`;ctx.fill();
-  });
-  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
-    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-    if(d<80){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(240,192,96,${.05*(1-d/80)})`;ctx.lineWidth=.5;ctx.stroke();}
-  }
-  requestAnimationFrame(frame);
-}
-frame();
-
-/* REVEAL */
-document.querySelectorAll('.rv').forEach(el=>{
-  new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add('on');},{threshold:.08}).observe(el);
-});
-
-/* COUNTERS */
-function animCounter(el){
-  const t=+el.dataset.target,s=el.dataset.suffix||'';
-  let c=0;const step=t/60;
-  const iv=setInterval(()=>{c=Math.min(c+step,t);el.textContent=Math.floor(c)+s;if(c>=t)clearInterval(iv);},25);
-}
-new IntersectionObserver(([e])=>{
-  if(e.isIntersecting){e.target.querySelectorAll('.counter-num').forEach(animCounter);e.target.classList.add('on');}
-},{threshold:.3}).observe(document.querySelector('.counters-sec'));
-
-/* 3D TILT */
-document.querySelectorAll('.pc,.sk,.ec,.edu-c').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const rx=-(e.clientY-r.top-r.height/2)/r.height*8;
-    const ry=(e.clientX-r.left-r.width/2)/r.width*8;
-    card.style.transform=`translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-  });
-  card.addEventListener('mouseleave',()=>card.style.transform='');
-});
-
-/* DRAG SCROLL */
-const ps=document.getElementById('projScroll');
-let isDown=false,startX,scrollLeft;
-ps.addEventListener('mousedown',e=>{isDown=true;ps.style.cursor='grabbing';startX=e.pageX-ps.offsetLeft;scrollLeft=ps.scrollLeft;});
-ps.addEventListener('mouseleave',()=>{isDown=false;ps.style.cursor='grab';});
-ps.addEventListener('mouseup',()=>{isDown=false;ps.style.cursor='grab';});
-ps.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-ps.offsetLeft;ps.scrollLeft=scrollLeft-(x-startX)*1.5;});
+  (function() {
+    const bigFill = document.getElementById('bigFill');
+    if (!bigFill) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setTimeout(() => { bigFill.style.width = '71%'; }, 300);
+        io.disconnect();
+      }
+    }, { threshold: .3 });
+    io.observe(bigFill.closest('.dash-panel'));
+  })();
 </script>
+<script src="js/main.js"></script>
 </body>
 </html>
