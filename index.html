@@ -176,56 +176,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .pcard-desc{font-size:.83rem;line-height:1.75;color:var(--dim);margin-bottom:1.5rem;}
 .pcard-kpi{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;color:var(--teal);padding:.4rem 1rem;border-radius:100px;background:rgba(0,245,196,.07);border:1px solid rgba(0,245,196,.22);letter-spacing:.04em;}
 
-/* AY26 DASHBOARD */
-.dash-section{position:relative;z-index:10;padding:2.5rem 3.5rem 5rem;max-width:1200px;margin:0 auto;}
-.kpi-band{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:2rem;}
-.kpi{background:rgba(255,255,255,.022);border:1px solid var(--border);border-radius:18px;padding:1.5rem 1.35rem;position:relative;overflow:hidden;transition:all .3s;}
-.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
-.k-gold::after{background:linear-gradient(90deg,var(--gold),var(--gold2));}
-.k-teal::after{background:linear-gradient(90deg,var(--teal),#5fffd4);}
-.k-rose::after{background:linear-gradient(90deg,var(--rose),#ff85a1);}
-.k-vio::after{background:linear-gradient(90deg,var(--violet),#c99dff);}
-.k-blue::after{background:linear-gradient(90deg,var(--blue),#9dcfff);}
-.kpi:hover{transform:translateY(-5px);border-color:rgba(245,200,66,.2);}
-.kpi-label{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:.6rem;}
-.kpi-value{font-family:'Bebas Neue',sans-serif;font-size:2.25rem;letter-spacing:.04em;line-height:1;margin-bottom:.3rem;}
-.kv-gold{color:var(--gold);}.kv-teal{color:var(--teal);}.kv-rose{color:var(--rose);}.kv-vio{color:var(--violet);}.kv-blue{color:var(--blue);}
-.kpi-sub{font-size:.72rem;color:var(--dim);}
-.dash-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
-.dash-row-2{display:grid;grid-template-columns:1.4fr 1fr;gap:1rem;margin-bottom:1rem;}
-.dash-panel{background:rgba(255,255,255,.018);border:1px solid var(--border);border-radius:22px;padding:1.75rem;position:relative;overflow:hidden;transition:border-color .3s;}
-.dash-panel:hover{border-color:rgba(245,200,66,.18);}
-.panel-title{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem;}
-.panel-title::before{content:'';width:14px;height:1px;background:var(--gold);}
-.donut-wrap{display:flex;align-items:center;gap:1.75rem;}
-.donut-legend{flex:1;display:flex;flex-direction:column;gap:.6rem;}
-.dl-item{display:flex;align-items:center;gap:.6rem;font-size:.75rem;}
-.dl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.dl-label{color:var(--dim);flex:1;}
-.dl-value{color:var(--ink);font-weight:600;}
-.dl-pct{color:var(--dim);font-size:.67rem;}
-.bar-list{display:flex;flex-direction:column;gap:.8rem;}
-.bar-top{display:flex;justify-content:space-between;margin-bottom:.35rem;font-size:.75rem;}
-.bar-name{color:var(--dim);}
-.bar-val{color:var(--ink);font-weight:600;}
-.bar-track{height:6px;background:rgba(255,255,255,.06);border-radius:100px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:100px;transition:width 1.5s cubic-bezier(.25,.46,.45,.94);}
-.retention-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-.ret-block{text-align:center;}
-.ret-year{font-family:'Space Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:.75rem;}
-.ret-circle-wrap{position:relative;display:flex;justify-content:center;margin-bottom:.75rem;}
-.ret-label-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
-.ret-pct{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.04em;}
-.ret-sub{font-size:.58rem;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;}
-.cbar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.75rem;}
-.cbar-amount{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--teal);letter-spacing:.04em;}
-.cbar-total{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--dim);}
-.big-track{height:14px;background:rgba(255,255,255,.06);border-radius:100px;overflow:hidden;}
-.big-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--teal),#6fffdf);width:0;transition:width 2s 0.5s cubic-bezier(.25,.46,.45,.94);position:relative;}
-.big-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);border-radius:0 100px 100px 0;}
-.cbar-footer{display:flex;justify-content:space-between;margin-top:.5rem;font-family:'Space Mono',monospace;font-size:.62rem;color:var(--dim);}
-.today-pill{display:inline-flex;align-items:center;gap:.4rem;font-family:'Space Mono',monospace;font-size:.62rem;color:var(--teal);border:1px solid rgba(0,245,196,.25);background:rgba(0,245,196,.06);padding:.25rem .7rem;border-radius:100px;margin-left:.5rem;}
-
 /* EDUCATION */
 .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
 .edu-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--r2);padding:2.5rem;position:relative;overflow:hidden;transition:all .3s;}
@@ -282,9 +232,6 @@ footer span{opacity:.6;}
   .edu-grid{grid-template-columns:1fr;}
   .contact-inner{padding:3.5rem 2rem;}
   .pcard{width:320px;}
-  .dash-section{padding:1.5rem;}
-  .kpi-band{grid-template-columns:repeat(2,1fr);}
-  .dash-row{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -302,7 +249,6 @@ footer span{opacity:.6;}
     <a href="#skills">Skills</a>
     <a href="#experience">Work</a>
     <a href="#projects">Projects</a>
-    <a href="#ay26">AY26 Tracker</a>
     <a href="#contact">Contact</a>
   </div>
   <a href="mailto:Vishk0937@gmail.com" class="nav-cta">Hire Me →</a>
@@ -395,8 +341,6 @@ footer span{opacity:.6;}
             <li>Automated reporting with Python & Excel — <b>40% less manual effort</b>, <b>3× faster delivery</b>.</li>
             <li>ETL on <strong>100K+ record datasets</strong> using Pandas & NumPy for pre-visualization analysis.</li>
             <li>Real-time tracking for <strong>10+ concurrent initiatives</strong> across cross-functional stakeholders.</li>
-            <li>Built the <b>AY26 Main Tracker</b> — unified student records, enrollment statuses, program details & fee structures into a single source of truth.</li>
-            <li>Architected the <b>AY26 Fee Collection Dashboard</b> — live tracking of payments, outstanding balances, refunds, and course-wise collection rates.</li>
           </ul>
         </div>
         <div class="exp-meta"><div class="exp-period">Jul 2025 – Present</div><br><div class="exp-loc">📍 Noida, India</div></div>
@@ -449,136 +393,7 @@ footer span{opacity:.6;}
     <div class="pcard"><div class="pcard-glow"></div><div class="pcard-num">02</div><div class="pcard-stack"><span class="pcard-tool">Looker Studio</span><span class="pcard-tool">Google Sheets</span></div><div class="pcard-title">Sales Info Portal · Program Management</div><p class="pcard-desc">Centralized self-service portal with real-time program details and dynamic fee calculators — deployed across 50+ sales executives, eliminating back-and-forth manual queries.</p><div class="pcard-kpi">↓ 70% less dependency on manual queries</div></div>
     <div class="pcard"><div class="pcard-glow"></div><div class="pcard-num">03</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Dataflows</span></div><div class="pcard-title">Topper's Progress Tracking System</div><p class="pcard-desc">Fully automated academic dashboard tracking test scores, attendance & subject-wise performance — enabling personalized mentor interventions for high-achieving students.</p><div class="pcard-kpi">✦ Fully automated · Zero manual refresh</div></div>
     <div class="pcard featured"><div class="pcard-glow"></div><div class="pcard-num">04</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">SQL</span><span class="pcard-tool">Python</span></div><div class="pcard-title">AY26 Main Tracker — Single Source of Truth</div><p class="pcard-desc">Gathered and unified student records, enrollment statuses, program details, and fee structures into a single trusted data model for AY26. Eliminated data silos across ops, finance, and academic teams.</p><div class="pcard-kpi">✦ Unified 6+ data sources · AY 2025–26</div></div>
-    <div class="pcard featured"><div class="pcard-glow"></div><div class="pcard-num">05</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Google Sheets</span><span class="pcard-tool">SQL</span></div><div class="pcard-title">AY26 Fee Collection Dashboard</div><p class="pcard-desc">Live dashboard tracking student fee payments, outstanding balances, and refund statuses for AY26. Key metrics: total due vs paid vs pending, % collected today, course-wise breakdown, YoY retention vs AY25.</p><div class="pcard-kpi">↑ Real-time · Course-wise · YoY Retention</div></div>
     <div class="pcard" style="background:rgba(245,200,66,.025);border-color:rgba(245,200,66,.1);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;"><div style="font-size:3rem;margin-bottom:1rem;">🚀</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.75rem;color:var(--gold);">More Coming Soon</div><p style="font-size:.83rem;color:var(--dim);line-height:1.6;">Actively building next-gen BI systems. Stay tuned.</p></div>
-  </div>
-</div>
-
-<!-- AY26 SECTION HEADER -->
-<section class="sec" id="ay26" style="padding-bottom:2rem;">
-  <div class="sec-inner">
-    <div class="rv">
-      <div class="eyebrow">AY 2025–26</div>
-      <div class="sec-title"><span class="accent">Fee Collection</span> <span class="ghost">Dashboard</span></div>
-      <p style="font-size:.9rem;color:var(--dim);max-width:560px;line-height:1.8;">Live snapshot of AY26 fee collections, outstanding balances, refund statuses, course-wise breakdown, and year-over-year retention. <span class="today-pill">● Live as of Today</span></p>
-    </div>
-  </div>
-</section>
-
-<!-- AY26 DASHBOARD -->
-<div class="dash-section rv">
-  <!-- KPI ROW -->
-  <div class="kpi-band">
-    <div class="kpi k-gold"><div class="kpi-label">Total Fee Due (AY26)</div><div class="kpi-value kv-gold">₹18.6 Cr</div><div class="kpi-sub">Across all programs</div></div>
-    <div class="kpi k-teal"><div class="kpi-label">Total Collected</div><div class="kpi-value kv-teal">₹13.2 Cr</div><div class="kpi-sub">Till today (Apr 14)</div></div>
-    <div class="kpi k-rose"><div class="kpi-label">Outstanding</div><div class="kpi-value kv-rose">₹5.4 Cr</div><div class="kpi-sub">Pending from students</div></div>
-    <div class="kpi k-vio"><div class="kpi-label">% Collected</div><div class="kpi-value kv-vio">71%</div><div class="kpi-sub">of total due amount</div></div>
-    <div class="kpi k-blue"><div class="kpi-label">Refunds Processed</div><div class="kpi-value kv-blue">₹38L</div><div class="kpi-sub">142 cases closed</div></div>
-  </div>
-
-  <!-- ROW 1 -->
-  <div class="dash-row">
-    <!-- Collection bar -->
-    <div class="dash-panel">
-      <div class="panel-title">Collected Till Today</div>
-      <div class="cbar-header"><div class="cbar-amount">₹13.2 Cr</div><div class="cbar-total">of ₹18.6 Cr Total</div></div>
-      <div class="big-track"><div class="big-fill" id="bigFill"></div></div>
-      <div class="cbar-footer"><span>0%</span><span style="color:var(--teal);font-weight:700;">71% collected</span><span>100%</span></div>
-      <div style="margin-top:1.25rem;display:flex;flex-direction:column;gap:.6rem;">
-        <div style="display:flex;justify-content:space-between;font-size:.75rem;"><span style="color:var(--dim);">Q1 (Apr–Jun)</span><span style="color:var(--ink);font-weight:600;">₹4.8 Cr</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:.75rem;"><span style="color:var(--dim);">Q2 (Jul–Sep)</span><span style="color:var(--ink);font-weight:600;">₹5.1 Cr</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:.75rem;"><span style="color:var(--dim);">Q3 (Oct–Dec)</span><span style="color:var(--ink);font-weight:600;">₹2.4 Cr</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:.75rem;"><span style="color:var(--dim);">Q4 (Jan–Apr, partial)</span><span style="color:var(--gold);font-weight:600;">₹0.9 Cr ●</span></div>
-      </div>
-    </div>
-    <!-- Donut -->
-    <div class="dash-panel">
-      <div class="panel-title">Payment Status Split</div>
-      <div class="donut-wrap">
-        <svg width="140" height="140" viewBox="0 0 140 140" style="flex-shrink:0;">
-          <circle cx="70" cy="70" r="54" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="20"/>
-          <circle cx="70" cy="70" r="54" fill="none" stroke="#00f5c4" stroke-width="20" stroke-dasharray="239.6 99.6" stroke-dashoffset="84.8" stroke-linecap="round"/>
-          <circle cx="70" cy="70" r="54" fill="none" stroke="#ff3d6e" stroke-width="20" stroke-dasharray="85" stroke-dashoffset="-154.8" stroke-linecap="round"/>
-          <circle cx="70" cy="70" r="54" fill="none" stroke="#a259ff" stroke-width="20" stroke-dasharray="14.9" stroke-dashoffset="-239.8" stroke-linecap="round"/>
-          <text x="70" y="67" text-anchor="middle" fill="#eeeaff" font-family="'Bebas Neue',sans-serif" font-size="22" letter-spacing="1">71%</text>
-          <text x="70" y="83" text-anchor="middle" fill="rgba(238,234,255,.38)" font-family="'Space Mono',monospace" font-size="8">COLLECTED</text>
-        </svg>
-        <div class="donut-legend">
-          <div class="dl-item"><div class="dl-dot" style="background:var(--teal)"></div><div class="dl-label">Paid</div><div class="dl-value">₹13.2 Cr</div><div class="dl-pct">71%</div></div>
-          <div class="dl-item"><div class="dl-dot" style="background:var(--rose)"></div><div class="dl-label">Pending</div><div class="dl-value">₹5.0 Cr</div><div class="dl-pct">27%</div></div>
-          <div class="dl-item"><div class="dl-dot" style="background:var(--violet)"></div><div class="dl-label">Refunded</div><div class="dl-value">₹0.38 Cr</div><div class="dl-pct">2%</div></div>
-        </div>
-      </div>
-    </div>
-    <!-- Retention -->
-    <div class="dash-panel">
-      <div class="panel-title">Retention — YoY Comparison</div>
-      <div class="retention-grid">
-        <div class="ret-block">
-          <div class="ret-year">AY 2024–25</div>
-          <div class="ret-circle-wrap">
-            <svg width="100" height="100" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#a259ff" stroke-width="12" stroke-dasharray="213.6" stroke-dashoffset="46.8" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-            </svg>
-            <div class="ret-label-center"><div class="ret-pct" style="color:var(--violet);">78%</div><div class="ret-sub">retained</div></div>
-          </div>
-          <div style="font-size:.72rem;color:var(--dim);text-align:center;">3,840 of 4,923</div>
-        </div>
-        <div class="ret-block">
-          <div class="ret-year">AY 2025–26</div>
-          <div class="ret-circle-wrap">
-            <svg width="100" height="100" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#00f5c4" stroke-width="12" stroke-dasharray="213.6" stroke-dashoffset="38.4" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-            </svg>
-            <div class="ret-label-center"><div class="ret-pct" style="color:var(--teal);">82%</div><div class="ret-sub">retained</div></div>
-          </div>
-          <div style="font-size:.72rem;color:var(--teal);text-align:center;font-weight:600;">↑ +4% vs last year</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ROW 2 -->
-  <div class="dash-row-2">
-    <!-- Course-wise -->
-    <div class="dash-panel">
-      <div class="panel-title">Course-wise Fee Collection</div>
-      <div class="bar-list">
-        <div class="bar-item"><div class="bar-top"><span class="bar-name">JEE (Main + Advanced)</span><span class="bar-val">₹4.2 Cr · 88%</span></div><div class="bar-track"><div class="bar-fill" style="width:88%;background:linear-gradient(90deg,#f5c842,#ffe17a);"></div></div></div>
-        <div class="bar-item"><div class="bar-top"><span class="bar-name">NEET UG</span><span class="bar-val">₹3.8 Cr · 82%</span></div><div class="bar-track"><div class="bar-fill" style="width:82%;background:linear-gradient(90deg,#00f5c4,#6fffdf);"></div></div></div>
-        <div class="bar-item"><div class="bar-top"><span class="bar-name">Foundation (8–10)</span><span class="bar-val">₹2.1 Cr · 74%</span></div><div class="bar-track"><div class="bar-fill" style="width:74%;background:linear-gradient(90deg,#a259ff,#c99dff);"></div></div></div>
-        <div class="bar-item"><div class="bar-top"><span class="bar-name">Xylem (Degree)</span><span class="bar-val">₹1.9 Cr · 68%</span></div><div class="bar-track"><div class="bar-fill" style="width:68%;background:linear-gradient(90deg,#4d9dff,#9dcfff);"></div></div></div>
-        <div class="bar-item"><div class="bar-top"><span class="bar-name">Crash Course / Short</span><span class="bar-val">₹0.8 Cr · 61%</span></div><div class="bar-track"><div class="bar-fill" style="width:61%;background:linear-gradient(90deg,#ff3d6e,#ff85a1);"></div></div></div>
-        <div class="bar-item"><div class="bar-top"><span class="bar-name">Other Programs</span><span class="bar-val">₹0.4 Cr · 55%</span></div><div class="bar-track"><div class="bar-fill" style="width:55%;background:linear-gradient(90deg,rgba(238,234,255,.4),rgba(238,234,255,.2));"></div></div></div>
-      </div>
-    </div>
-    <!-- Aging -->
-    <div class="dash-panel">
-      <div class="panel-title">Outstanding Aging Bucket</div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.75rem;"><span style="color:var(--dim);">0–30 days</span><span style="color:var(--gold);font-weight:600;">₹1.8 Cr</span></div><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--gold);"></div></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.75rem;"><span style="color:var(--dim);">31–60 days</span><span style="color:var(--rose);font-weight:600;">₹2.1 Cr</span></div><div class="bar-track"><div class="bar-fill" style="width:39%;background:var(--rose);"></div></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.75rem;"><span style="color:var(--dim);">60+ days</span><span style="color:var(--violet);font-weight:600;">₹1.5 Cr</span></div><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--violet);"></div></div></div>
-        <div style="margin-top:.5rem;padding:1rem;border-radius:12px;background:rgba(0,245,196,.06);border:1px solid rgba(0,245,196,.18);">
-          <div style="font-family:'Space Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:.4rem;">Today's Collection</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--teal);">₹12.4 L</div>
-          <div style="font-size:.72rem;color:var(--dim);">Apr 14, 2026 · 87 transactions</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AY26 Main Tracker Summary -->
-  <div class="dash-panel" style="margin-top:1rem;">
-    <div class="panel-title">AY26 Main Tracker — Data Overview</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
-      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(245,200,66,.04);border:1px solid rgba(245,200,66,.1);"><div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold);">6,248</div><div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Total Students</div></div>
-      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(0,245,196,.04);border:1px solid rgba(0,245,196,.1);"><div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--teal);">5,720</div><div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Active Enrolled</div></div>
-      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(162,89,255,.04);border:1px solid rgba(162,89,255,.1);"><div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--violet);">14</div><div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Programs Tracked</div></div>
-      <div style="text-align:center;padding:1.25rem;border-radius:14px;background:rgba(255,61,110,.04);border:1px solid rgba(255,61,110,.1);"><div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--rose);">6+</div><div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;">Data Sources Merged</div></div>
-    </div>
   </div>
 </div>
 
@@ -709,14 +524,6 @@ footer span{opacity:.6;}
     ps.addEventListener('mouseleave',function(){isDown=false;ps.style.cursor='grab';});
     ps.addEventListener('mouseup',function(){isDown=false;ps.style.cursor='grab';});
     ps.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();var x=e.pageX-ps.offsetLeft;ps.scrollLeft=scrollLeft-(x-startX)*1.5;});
-  }
-
-  /* BIG FILL BAR */
-  var bf=document.getElementById('bigFill');
-  if(bf){
-    new IntersectionObserver(function(entries){
-      if(entries[0].isIntersecting){bf.style.width='71%';}
-    },{threshold:.3}).observe(bf);
   }
 
   /* TYPED EFFECT */
