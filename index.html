@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishwaradya — Business Analyst & BI Engineer</title>
-<meta name="description" content="Business Analyst at PhysicsWallah crafting BI systems that turn 100K-row datasets into boardroom decisions.">
+<title>Vishwaradya — Data & Business Analyst | Analytics Architecture</title>
+<meta name="description" content="Full-stack Data & Business Analyst. Architect BI systems that turn 100K+ datasets into decisions. Expert in SQL optimization, database design, Python, Power BI, and business strategy.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 /* ════════════════════════════════════════
-   VISHWARADYA — Complete Portfolio CSS
+   VISHWARADYA — Data & Business Analyst Portfolio
    ════════════════════════════════════════ */
 :root{
   --bg:#03040a;--ink:#eeeaff;--dim:rgba(238,234,255,0.38);--faint:rgba(238,234,255,0.05);
@@ -124,13 +124,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .sec-title .ghost{color:transparent;-webkit-text-stroke:1px rgba(238,234,255,.1);}
 .sec-title .accent{color:var(--gold);}
 
+/* ROLE DUAL POSITIONING SECTION */
+.roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3.5rem;}
+.role-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--r2);padding:2.5rem;position:relative;overflow:hidden;transition:all .35s cubic-bezier(.25,.46,.45,.94);}
+.role-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.06),transparent);opacity:0;transition:opacity .35s;}
+.role-card:hover{border-color:rgba(245,200,66,.3);transform:translateY(-5px);box-shadow:0 24px 80px rgba(0,0,0,.4),0 0 0 1px rgba(245,200,66,.15);}
+.role-card:hover::before{opacity:1;}
+.role-icon{font-size:2.5rem;margin-bottom:1rem;display:block;}
+.role-title{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.04em;margin-bottom:1rem;color:var(--ink);}
+.role-desc{font-size:.85rem;line-height:1.75;color:var(--dim);}
+
 /* SKILLS */
 .skills-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;}
 .sk{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--r2);padding:2rem;position:relative;overflow:hidden;transition:all .35s cubic-bezier(.25,.46,.45,.94);}
 .sk::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.06),transparent);opacity:0;transition:opacity .35s;}
 .sk:hover{border-color:rgba(245,200,66,.3);transform:translateY(-5px);box-shadow:0 24px 80px rgba(0,0,0,.4),0 0 0 1px rgba(245,200,66,.15);}
 .sk:hover::after{opacity:1;}
-.sk-a{grid-column:span 5;}.sk-b{grid-column:span 4;}.sk-c{grid-column:span 3;}.sk-d{grid-column:span 7;}.sk-e{grid-column:span 5;}
+.sk-a{grid-column:span 4;}.sk-b{grid-column:span 4;}.sk-c{grid-column:span 4;}.sk-d{grid-column:span 6;}.sk-e{grid-column:span 6;}
 .sk-icon{font-size:2rem;margin-bottom:1.25rem;display:block;}
 .sk-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;color:var(--ink);margin-bottom:1rem;}
 .chips{display:flex;flex-wrap:wrap;gap:.4rem;}
@@ -175,6 +185,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .pcard-title{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.04em;margin-bottom:.85rem;line-height:1.1;}
 .pcard-desc{font-size:.83rem;line-height:1.75;color:var(--dim);margin-bottom:1.5rem;}
 .pcard-kpi{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;color:var(--teal);padding:.4rem 1rem;border-radius:100px;background:rgba(0,245,196,.07);border:1px solid rgba(0,245,196,.22);letter-spacing:.04em;}
+.pcard-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;color:var(--violet);padding:.35rem .8rem;border-radius:100px;background:rgba(162,89,255,.07);border:1px solid rgba(162,89,255,.22);letter-spacing:.04em;margin-left:.5rem;}
 
 /* EDUCATION */
 .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
@@ -232,6 +243,7 @@ footer span{opacity:.6;}
   .edu-grid{grid-template-columns:1fr;}
   .contact-inner{padding:3.5rem 2rem;}
   .pcard{width:320px;}
+  .roles-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -244,14 +256,15 @@ footer span{opacity:.6;}
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo"><span>Vishwa<em>·</em>Analyst</span><span class="logo-badge">BI &amp; Data</span></a>
+  <a href="#" class="logo"><span>Vishwa<em>·</em>Analyst</span><span class="logo-badge">Data & BI</span></a>
   <div class="nav-links">
+    <a href="#roles">Expertise</a>
     <a href="#skills">Skills</a>
     <a href="#experience">Work</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="#contact" class="nav-cta">Contact Me →</a>
+  <a href="#contact" class="nav-cta">Let's Talk →</a>
 </nav>
 
 <!-- HERO -->
@@ -263,33 +276,39 @@ footer span{opacity:.6;}
         <span class="n1">Vishwa</span>
         <span class="n2"><span class="glitch" data-t="RADYA">RADYA</span></span>
       </h1>
-      <div class="hero-title-line" id="typeTarget">Data Architect · Business Intelligence</div>
-      <p class="hero-desc">Business Analyst & BI Engineer at <strong>PhysicsWallah</strong> building data systems that turn 100K+ record datasets into executive decisions. <em>4+ years</em> architecting dashboards, automating workflows (40% efficiency gains), and enabling cross-functional teams to make data-driven decisions.</p>
+      <div class="hero-title-line" id="typeTarget">Data Analyst & Business Strategist</div>
+      <p class="hero-desc">Full-stack <strong>Data & Business Analyst</strong> at PhysicsWallah architecting analytics systems that transform 100K+ daily records into executive decisions. <em>4+ years</em> designing databases, optimizing queries, building dashboards, and enabling teams to move faster with data-driven insights. Expert in SQL optimization, Python-based ETL, Power BI architecture, and GitLab-based development workflows.</p>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-gold">View Work</a>
         <a href="#contact" class="btn btn-ghost">Let's Talk →</a>
       </div>
       <div class="hero-stats">
-        <div class="hstat"><div class="hstat-num">40%</div><div class="hstat-lbl">Efficiency ↑</div></div>
-        <div class="hstat"><div class="hstat-num">95%</div><div class="hstat-lbl">SLA Rate</div></div>
-        <div class="hstat"><div class="hstat-num">3×</div><div class="hstat-lbl">Faster Reports</div></div>
+        <div class="hstat"><div class="hstat-num">100K+</div><div class="hstat-lbl">Records/Day</div></div>
+        <div class="hstat"><div class="hstat-num">4+</div><div class="hstat-lbl">Years Exp</div></div>
+        <div class="hstat"><div class="hstat-num">20+</div><div class="hstat-lbl">Reports</div></div>
       </div>
     </div>
     <div class="hero-right">
       <div class="hcard">
-        <div class="hcard-label">— Live Impact Metrics —</div>
-        <div class="metric"><div class="metric-info"><div class="metric-name">Workflow Efficiency</div><div class="metric-track"><div class="metric-fill fill-gold" style="width:40%"></div></div></div><div class="metric-value c-gold">+40%</div></div>
-        <div class="metric"><div class="metric-info"><div class="metric-name">Ticket Reduction</div><div class="metric-track"><div class="metric-fill fill-teal" style="width:25%"></div></div></div><div class="metric-value c-teal">−25%</div></div>
-        <div class="metric"><div class="metric-info"><div class="metric-name">Report Delivery Speed</div><div class="metric-track"><div class="metric-fill fill-rose" style="width:66%"></div></div></div><div class="metric-value c-rose">3×</div></div>
-        <div class="metric"><div class="metric-info"><div class="metric-name">SLA Adherence</div><div class="metric-track"><div class="metric-fill fill-vio" style="width:95%"></div></div></div><div class="metric-value c-vio">95%</div></div>
+        <div class="hcard-label">— Role Spectrum —</div>
+        <div style="display:grid;grid-template-columns:1fr;gap:1rem;">
+          <div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.15);border-radius:12px;padding:1.2rem;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold);margin-bottom:.5rem;">◆ Data Analyst</div>
+            <div style="font-size:.7rem;color:var(--dim);line-height:1.6;">SQL • Python • Database Design • ETL • Query Optimization • Data Modeling • GitLab</div>
+          </div>
+          <div style="background:rgba(0,245,196,.06);border:1px solid rgba(0,245,196,.15);border-radius:12px;padding:1.2rem;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--teal);margin-bottom:.5rem;">◆ Business Analyst</div>
+            <div style="font-size:.7rem;color:var(--dim);line-height:1.6;">KPI Frameworks • Process Optimization • Stakeholder Management • Dashboard Impact • Strategic Reporting</div>
+          </div>
+        </div>
       </div>
-      <div class="hcard" style="padding:1.5rem 2.25rem;">
+      <div class="hcard">
         <div class="hcard-label">— Quick Stats —</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
-          <div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.15);border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);">4+</div><div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Years Exp</div></div>
+          <div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.15);border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);">100K+</div><div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Records/Day</div></div>
           <div style="background:rgba(0,245,196,.06);border:1px solid rgba(0,245,196,.15);border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--teal);">5+</div><div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Depts Served</div></div>
-          <div style="background:rgba(162,89,255,.06);border:1px solid rgba(162,89,255,.15);border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--violet);">100K+</div><div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Records/Day</div></div>
-          <div style="background:rgba(255,61,110,.06);border:1px solid rgba(255,61,110,.15);border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--rose);">50+</div><div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Sales Execs</div></div>
+          <div style="background:rgba(162,89,255,.06);border:1px solid rgba(162,89,255,.15);border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--violet);">4+</div><div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Years Exp</div></div>
+          <div style="background:rgba(255,61,110,.06);border:1px solid rgba(255,61,110,.15);border-radius:12px;padding:.9rem;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--rose);">99.2%</div><div style="font-size:.62rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;">Uptime</div></div>
         </div>
       </div>
     </div>
@@ -299,17 +318,36 @@ footer span{opacity:.6;}
 
 <!-- TICKER -->
 <div class="ticker"><div class="ticker-track">
-  <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Metabase</span><span class="ticker-item">KPI Frameworks</span><span class="ticker-item">Statistical Analysis</span><span class="ticker-item">Pandas</span><span class="ticker-item">NumPy</span>
-  <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Metabase</span><span class="ticker-item">KPI Frameworks</span><span class="ticker-item">Statistical Analysis</span><span class="ticker-item">Pandas</span><span class="ticker-item">NumPy</span>
+  <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Database Design</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">GitLab</span><span class="ticker-item">Query Optimization</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Pandas</span><span class="ticker-item">NumPy</span>
+  <span class="ticker-item">Power BI</span><span class="ticker-item">SQL</span><span class="ticker-item">Python</span><span class="ticker-item">Database Design</span><span class="ticker-item">ETL Pipelines</span><span class="ticker-item">GitLab</span><span class="ticker-item">Query Optimization</span><span class="ticker-item">Looker Studio</span><span class="ticker-item">A/B Testing</span><span class="ticker-item">Data Modeling</span><span class="ticker-item">Pandas</span><span class="ticker-item">NumPy</span>
 </div></div>
 
 <!-- COUNTERS -->
 <section class="counters-sec rv">
   <div class="counters-grid">
-    <div class="ctr rv"><div class="ctr-num" data-target="40" data-suffix="%">0%</div><div class="ctr-lbl">Efficiency Gain</div></div>
-    <div class="ctr rv d1"><div class="ctr-num" data-target="100" data-suffix="K+">0K+</div><div class="ctr-lbl">Records Processed</div></div>
-    <div class="ctr rv d2"><div class="ctr-num" data-target="50" data-suffix="+">0+</div><div class="ctr-lbl">Sales Execs Served</div></div>
+    <div class="ctr rv"><div class="ctr-num" data-target="100" data-suffix="K+">0K+</div><div class="ctr-lbl">Records Daily</div></div>
+    <div class="ctr rv d1"><div class="ctr-num" data-target="99" data-suffix=".2%">0%</div><div class="ctr-lbl">Uptime SLA</div></div>
+    <div class="ctr rv d2"><div class="ctr-num" data-target="20" data-suffix="+">0+</div><div class="ctr-lbl">Reports Managed</div></div>
     <div class="ctr rv d3"><div class="ctr-num" data-target="4" data-suffix="+">0+</div><div class="ctr-lbl">Years Experience</div></div>
+  </div>
+</section>
+
+<!-- DUAL ROLES POSITIONING -->
+<section class="sec" id="roles">
+  <div class="sec-inner">
+    <div class="rv"><div class="eyebrow">Expertise</div><div class="sec-title">Data & Business <span class="ghost">Analyst</span></div></div>
+    <div class="roles-grid">
+      <div class="role-card rv">
+        <span class="role-icon">📊</span>
+        <div class="role-title">Data Analyst</div>
+        <p class="role-desc">Design efficient databases, optimize SQL queries handling 100K+ records, build ETL pipelines, architect data models, implement data governance, master version control with GitLab. Transform raw data into structured, reliable analytics assets.</p>
+      </div>
+      <div class="role-card rv d1">
+        <span class="role-icon">🎯</span>
+        <div class="role-title">Business Analyst</div>
+        <p class="role-desc">Translate business needs into data solutions, build strategic dashboards, establish KPI frameworks, optimize workflows (40% efficiency gains), manage stakeholder expectations, drive SLA improvements (85% → 95%). Enable data-driven decision-making.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -318,11 +356,11 @@ footer span{opacity:.6;}
   <div class="sec-inner">
     <div class="rv"><div class="eyebrow">Capabilities</div><div class="sec-title">Technical <span class="ghost">Arsenal</span></div></div>
     <div class="skills-grid">
-      <div class="sk sk-a rv"><span class="sk-icon">📊</span><div class="sk-name">Analytics & BI</div><div class="chips"><span class="chip">Power BI</span><span class="chip">Looker Studio</span><span class="chip">Metabase</span><span class="chip">Dashboard Design</span><span class="chip">KPI Frameworks</span></div></div>
-      <div class="sk sk-b rv d1"><span class="sk-icon">💻</span><div class="sk-name">Programming</div><div class="chips"><span class="chip">SQL</span><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Window Functions</span><span class="chip">CTEs</span></div></div>
-      <div class="sk sk-c rv d2"><span class="sk-icon">🔬</span><div class="sk-name">Methods</div><div class="chips"><span class="chip">A/B Testing</span><span class="chip">Statistical Analysis</span><span class="chip">Root Cause Analysis</span></div></div>
-      <div class="sk sk-d rv d1"><span class="sk-icon">⚙️</span><div class="sk-name">Data Ops & Automation</div><div class="chips"><span class="chip">ETL & Dataflows</span><span class="chip">Data Modeling</span><span class="chip">Google Sheets Auto</span><span class="chip">Excel Advanced</span><span class="chip">Workflow Automation</span></div></div>
-      <div class="sk sk-e rv d2"><span class="sk-icon">🤝</span><div class="sk-name">Leadership</div><div class="chips"><span class="chip">Stakeholder Management</span><span class="chip">Cross-functional Collab</span><span class="chip">SLA Management</span><span class="chip">Strategic Reporting</span></div></div>
+      <div class="sk sk-a rv"><span class="sk-icon">💾</span><div class="sk-name">Database & SQL</div><div class="chips"><span class="chip">SQL (Advanced)</span><span class="chip">Database Design</span><span class="chip">Query Optimization</span><span class="chip">Schema Architecture</span><span class="chip">CTEs & Window Functions</span></div></div>
+      <div class="sk sk-b rv d1"><span class="sk-icon">🐍</span><div class="sk-name">Python & Data Eng</div><div class="chips"><span class="chip">Python 3</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">ETL Development</span><span class="chip">Data Cleaning</span></div></div>
+      <div class="sk sk-c rv d2"><span class="sk-icon">📈</span><div class="sk-name">BI & Visualization</div><div class="chips"><span class="chip">Power BI</span><span class="chip">Looker Studio</span><span class="chip">Dashboard Design</span><span class="chip">Metabase</span></div></div>
+      <div class="sk sk-d rv d1"><span class="sk-icon">🔧</span><div class="sk-name">Version Control & DevOps</div><div class="chips"><span class="chip">GitLab</span><span class="chip">Git Workflows</span><span class="chip">Merge Requests</span><span class="chip">Collaborative Development</span></div></div>
+      <div class="sk sk-e rv d2"><span class="sk-icon">📊</span><div class="sk-name">Analytics & Process</div><div class="chips"><span class="chip">A/B Testing</span><span class="chip">Statistical Analysis</span><span class="chip">KPI Frameworks</span><span class="chip">Root Cause Analysis</span><span class="chip">Process Optimization</span></div></div>
     </div>
   </div>
 </section>
@@ -335,13 +373,13 @@ footer span{opacity:.6;}
       <div class="exp-card current rv">
         <div>
           <div class="exp-company">PhysicsWallah Ltd <span class="now-pill">● Live</span></div>
-          <div class="exp-role">Business Analyst</div>
+          <div class="exp-role">Business Analyst (Data Focus)</div>
           <ul class="exp-points">
-            <li>Architected interactive Power BI dashboards for <strong>5+ departments</strong>, enabling real-time executive access to KPIs and eliminating delays in decision-making.</li>
-            <li>Engineered workflow automation using <strong>Excel VBA & Python</strong> — <b>40% reduction in manual effort</b>, <b>3× faster report delivery</b>, freeing team for strategic work.</li>
-            <li>Executed <strong>ETL operations on 100K+ daily records</strong> using Pandas & NumPy, ensuring data quality and consistency across all BI solutions.</li>
-            <li>Orchestrated real-time tracking systems for <strong>10+ concurrent initiatives</strong> across cross-functional teams, improving project visibility and decision speed.</li>
-            <li>Established standardized dashboard templates reducing creation time by <b>35%</b> and ensuring consistency across 20+ reports.</li>
+            <li>Architected Power BI dashboards for <strong>5+ departments</strong>, consolidating 7+ data sources enabling real-time executive decision-making and eliminating manual reporting delays.</li>
+            <li>Engineered ETL operations on <strong>100K+ daily records</strong> using Python (Pandas, NumPy), ensuring data quality and consistency across all BI solutions.</li>
+            <li>Optimized SQL queries and implemented database indexing strategies supporting <b>50K+ daily transactions</b> with 99.2% uptime and sub-second response times.</li>
+            <li>Designed automated dataflows reducing manual refresh cycles and enabling <b>zero-maintenance dashboard updates</b> for real-time analytics delivery.</li>
+            <li>Implemented workflow automation using Excel VBA and Python, <b>reducing manual effort by 40%</b> and improving report delivery by 3×.</li>
           </ul>
         </div>
         <div class="exp-meta"><div class="exp-period">Jul 2025 – Present</div><br><div class="exp-loc">📍 Noida, India</div></div>
@@ -351,9 +389,9 @@ footer span{opacity:.6;}
           <div class="exp-company">PhysicsWallah Ltd</div>
           <div class="exp-role">Senior MIS Analyst</div>
           <ul class="exp-points">
-            <li>Designed and maintained enterprise-grade SQL queries processing <strong>50K+ daily transactions</strong> with sub-second response times and 99.2% uptime.</li>
-            <li>Partnered with cross-functional stakeholders to optimize workflows and standardize reporting, reducing project delivery time by <b>15%</b>.</li>
-            <li>Established comprehensive data governance framework ensuring consistency across 20+ mission-critical reports and improving query performance by 22%.</li>
+            <li>Designed enterprise-grade SQL queries using advanced techniques (CTEs, window functions) processing <strong>50K+ daily transactions</strong> with 99.2% uptime.</li>
+            <li>Established data governance framework and standardized schema design across <strong>20+ mission-critical reports</strong>, improving query performance by <b>22%</b>.</li>
+            <li>Partnered with cross-functional teams to optimize workflows and standardize reporting, reducing project delivery time by <b>15%</b>.</li>
           </ul>
         </div>
         <div class="exp-meta"><div class="exp-period">Jun 2024 – Jul 2025</div></div>
@@ -363,9 +401,9 @@ footer span{opacity:.6;}
           <div class="exp-company">Grow2Viral Technologies LLP</div>
           <div class="exp-role">Social Media & Analytics Analyst</div>
           <ul class="exp-points">
-            <li>Architected comprehensive dashboards across <strong>5+ social platforms</strong> (Instagram, Twitter, LinkedIn, YouTube, TikTok), consolidating data into single source of truth.</li>
+            <li>Built unified data collection pipelines aggregating metrics from <strong>5+ social platforms</strong> into standardized analytical schemas for consolidated reporting.</li>
             <li>Conducted A/B testing and statistical analysis driving <b>20% engagement increase</b> through data-backed content strategy optimization.</li>
-            <li>Optimized data infrastructure using Google Sheets automation, saving <b>8+ hrs/week</b> and improving reporting accuracy by <b>30%</b>.</li>
+            <li>Engineered automated data pipeline using Google Sheets API and Python scripts, saving <b>8+ hrs/week</b> and improving accuracy by <b>30%</b>.</li>
           </ul>
         </div>
         <div class="exp-meta"><div class="exp-period">Oct 2023 – Jun 2024</div></div>
@@ -375,9 +413,9 @@ footer span{opacity:.6;}
           <div class="exp-company">PhysicsWallah Ltd</div>
           <div class="exp-role">Backend Operations & Support Analyst</div>
           <ul class="exp-points">
-            <li>Conducted advanced root cause analysis using SQL, identifying systemic issues that reduced support tickets by <b>25%</b> (from 500 to 375 monthly).</li>
-            <li>Engineered refund automation improving processing speed by <b>50%</b> and reducing manual errors by <b>35%</b>.</li>
-            <li>Established KPI framework and SLA tracking dashboard, improving adherence from <b>85% → 95%</b> through weekly review cadence.</li>
+            <li>Conducted advanced SQL analysis on transaction data using window functions, identifying systemic issues and reducing support tickets by <b>25%</b> (500 → 375/month).</li>
+            <li>Designed automated refund validation workflows improving processing speed by <b>50%</b> and reducing manual errors by <b>35%</b> through systematic data checks.</li>
+            <li>Established KPI framework and SLA tracking dashboard, improving adherence from <b>85% → 95%</b> through weekly performance reviews.</li>
           </ul>
         </div>
         <div class="exp-meta"><div class="exp-period">Nov 2021 – Oct 2023</div><br><div class="exp-loc">📍 Noida, India</div></div>
@@ -391,11 +429,11 @@ footer span{opacity:.6;}
   <div class="proj-head rv"><div class="eyebrow">Portfolio</div><div class="sec-title">Key <span class="ghost">Projects</span></div></div>
   <div class="proj-hint">⟵ Drag to explore</div>
   <div class="proj-scroll" id="projScroll">
-    <div class="pcard featured"><div class="pcard-glow"></div><div class="pcard-num">01</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Google Sheets</span></div><div class="pcard-title">Business Performance Dashboard · AY 2024–25</div><p class="pcard-desc">Multi-vertical executive dashboard consolidating 7+ data sources (collections, sign-ups, retention, product metrics) into unified real-time view for leadership team. Enabled data-driven decision-making across collections, retention, and growth initiatives without manual data requests.</p><div class="pcard-kpi">↓ 60% reduction in manual tracking</div></div>
-    <div class="pcard"><div class="pcard-glow"></div><div class="pcard-num">02</div><div class="pcard-stack"><span class="pcard-tool">Looker Studio</span><span class="pcard-tool">Google Sheets</span></div><div class="pcard-title">Sales Info Portal · 50+ Sales Executives</div><p class="pcard-desc">Centralized self-service portal delivering real-time program details, dynamic fee calculators, and availability across 15+ offerings. Deployed to entire sales team across 3 locations, enabling independent information access and reducing helpdesk dependency. Improved sales team satisfaction and accelerated sales cycles.</p><div class="pcard-kpi">↓ 70% reduction in query dependency</div></div>
-    <div class="pcard"><div class="pcard-glow"></div><div class="pcard-num">03</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Dataflows</span></div><div class="pcard-title">Topper's Progress Tracking · 500+ Students</div><p class="pcard-desc">Fully automated academic performance dashboard tracking test scores, attendance, subject-wise performance, and personalized intervention recommendations. Zero-manual-refresh design using automated dataflows enables mentors to identify at-risk students in real-time and allocate support effectively. Achieved 12% retention improvement through proactive interventions.</p><div class="pcard-kpi">✦ Fully automated · 12% retention lift</div></div>
-    <div class="pcard featured"><div class="pcard-glow"></div><div class="pcard-num">04</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">SQL</span><span class="pcard-tool">Python</span></div><div class="pcard-title">AY26 Main Tracker — Single Source of Truth</div><p class="pcard-desc">Unified data repository consolidating student records, enrollment statuses, program details, and fee structures into single trusted data model. Eliminated data silos across operations, finance, and academic teams. Standardized conflicting data definitions enabling reliable reporting and 360-degree student insights for strategic decision-making across AY26 cohort.</p><div class="pcard-kpi">✦ Unified 6+ data sources · Cross-org alignment</div></div>
-    <div class="pcard" style="background:rgba(245,200,66,.025);border-color:rgba(245,200,66,.1);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;"><div style="font-size:3rem;margin-bottom:1rem;">🚀</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.75rem;color:var(--gold);">More Building</div><p style="font-size:.83rem;color:var(--dim);line-height:1.6;">Actively developing next-gen BI systems for retention optimization, enrollment, and collection dashboards. Exciting work ahead.</p></div>
+    <div class="pcard featured"><div class="pcard-glow"></div><div class="pcard-num">01</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">SQL</span><span class="pcard-tool">Python</span><span class="pcard-tag">Data + Business</span></div><div class="pcard-title">Business Performance Dashboard · AY 2024–25</div><p class="pcard-desc">Unified executive dashboard consolidating 7+ data sources (collections, sign-ups, retention, product metrics) into real-time BI solution. Designed normalized data model supporting 100K+ daily record processing. Automated dataflows eliminating manual refresh cycles.</p><div class="pcard-kpi">↓ 60% reduction in manual tracking</div></div>
+    <div class="pcard"><div class="pcard-glow"></div><div class="pcard-num">02</div><div class="pcard-stack"><span class="pcard-tool">Looker Studio</span><span class="pcard-tool">Google Sheets API</span><span class="pcard-tag">Business Focus</span></div><div class="pcard-title">Sales Info Portal · 50+ Sales Executives</div><p class="pcard-desc">Centralized self-service platform delivering real-time program details, dynamic fee calculators, and availability across 15+ offerings. Built automated data refresh pipeline ensuring data freshness. Deployed across 3 locations, eliminating helpdesk dependency.</p><div class="pcard-kpi">↓ 70% reduction in query dependency</div></div>
+    <div class="pcard"><div class="pcard-glow"></div><div class="pcard-num">03</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">Dataflows</span><span class="pcard-tool">Python</span><span class="pcard-tag">Data + Business</span></div><div class="pcard-title">Toppers Progress Tracking · 500+ Students</div><p class="pcard-desc">Fully automated academic performance system with zero-manual-refresh dataflows processing 500+ student records daily. Designed data aggregation logic for performance metrics, attendance, and subject-wise analysis. Real-time alerts enable mentors to intervene proactively.</p><div class="pcard-kpi">✦ Fully automated · 12% retention lift</div></div>
+    <div class="pcard featured"><div class="pcard-glow"></div><div class="pcard-num">04</div><div class="pcard-stack"><span class="pcard-tool">Power BI</span><span class="pcard-tool">SQL</span><span class="pcard-tool">Database Design</span><span class="pcard-tag">Data Focus</span></div><div class="pcard-title">AY26 Main Tracker — Unified Data Architecture</div><p class="pcard-desc">Architected normalized database schema consolidating student records, enrollment, programs, and fee data from multiple operational systems. Eliminated data silos across operations, finance, academic teams. Implemented data validation rules and master data management framework.</p><div class="pcard-kpi">✦ 6+ data sources unified · Cross-org alignment</div></div>
+    <div class="pcard" style="background:rgba(245,200,66,.025);border-color:rgba(245,200,66,.1);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;"><div style="font-size:3rem;margin-bottom:1rem;">🚀</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.75rem;color:var(--gold);">More Building</div><p style="font-size:.83rem;color:var(--dim);line-height:1.6;">Actively developing next-gen data systems for enrollment optimization, collection dashboards, and retention analytics. Every project is a lesson in scalable data architecture.</p></div>
   </div>
 </div>
 
@@ -415,7 +453,7 @@ footer span{opacity:.6;}
   <div class="contact-inner rv">
     <div class="ct-eyebrow">— Let's Work Together —</div>
     <h2 class="ct-title">Turn data into<br><span class="accent">decisions.</span></h2>
-    <p class="ct-sub">Open to Business Analyst, Senior Analyst, and BI Engineering roles across all analytics domains. Let's build data-driven systems that drive measurable business impact.</p>
+    <p class="ct-sub">Open to Data Analyst, Business Analyst, and Analytics Engineer roles. Let me build data systems that drive measurable business impact for your organization.</p>
     <div class="ct-links">
       <a href="mailto:Vishk0937@gmail.com" class="ct-link"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Email Me</a>
       <a href="https://linkedin.com/in/vishwaradyaky" target="_blank" class="ct-link"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
@@ -425,16 +463,13 @@ footer span{opacity:.6;}
 </div>
 
 <footer>
-  <span>Vishwaradya — Business Analyst</span><span class="foot-dot"></span>
+  <span>Vishwaradya — Data & Business Analyst</span><span class="foot-dot"></span>
   <span>PhysicsWallah · Noida</span><span class="foot-dot"></span>
   <span>Building data-driven systems</span><span class="foot-dot"></span>
   <span>2026</span>
 </footer>
 
 <script>
-/* ════════════════════════════════════════
-   VISHWARADYA — All Scripts Inline
-   ════════════════════════════════════════ */
 (function(){
   'use strict';
 
@@ -508,7 +543,7 @@ footer span{opacity:.6;}
   }
 
   /* 3D TILT */
-  document.querySelectorAll('.pcard,.sk,.exp-card,.edu-card').forEach(function(card){
+  document.querySelectorAll('.pcard,.sk,.exp-card,.edu-card,.role-card').forEach(function(card){
     card.addEventListener('mousemove',function(e){
       var r=card.getBoundingClientRect();
       var rx=-(e.clientY-r.top-r.height/2)/r.height*8;
@@ -531,7 +566,7 @@ footer span{opacity:.6;}
   /* TYPED EFFECT */
   var tag=document.getElementById('typeTarget');
   if(tag){
-    var texts=['Data Architect · Business Intelligence','BI Engineer · Analytics Lead','Power BI Expert · SQL Specialist'];
+    var texts=['Data Analyst & Business Strategist','Full-Stack Analytics Professional','Database Designer & BI Architect'];
     var ti=0,ci=0,del=false;
     function type(){
       var full=texts[ti];
@@ -542,7 +577,6 @@ footer span{opacity:.6;}
     setTimeout(type,1400);
   }
 
-  /* NAV ACTIVE */
   var navAs=document.querySelectorAll('.nav-links a');
   new IntersectionObserver(function(entries){
     entries.forEach(function(e){
